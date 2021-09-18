@@ -2,7 +2,7 @@
  Faster implementations of the following .NET collections:
  
  - Collections
-   - BitArray
+   - BitArray (WIP)
  - Generic Collections
    - [HashSet](https://github.com/KimTisott/FastCollections/blob/main/FastCollections/FastSet.cs)
 
