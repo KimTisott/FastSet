@@ -1,15 +1,15 @@
 ﻿using BenchmarkDotNet.Attributes;
 
-namespace FastCollections.Benchmarks.HashSet
+namespace FastCollections.Benchmarks
 {
     public class HashSet_Remove : BenchmarkBase
     {
         [Benchmark, BenchmarkCategory("Remove")]
-        public void FastSet()
+        public void FastHashSet()
         {
             for (var i = 0; i < Size; i++)
             {
-                FastSetData.Remove(i);
+                FastHashSetData.Remove(i);
             }
         }
 

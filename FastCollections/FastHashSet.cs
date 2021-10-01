@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace FastCollections
 {
-    public class FastSet
+    public class FastHashSet
     {
         private int[] dictionaries;
         private int BufferSize => dictionaries.Length * 32;
 
-        public FastSet()
+        public FastHashSet()
         {
             Clear();
         }
@@ -61,9 +61,9 @@ namespace FastCollections
 
     public static class FastSetExtensions
     {
-        public static FastSet ToFastSet(this IEnumerable<int> enumerable)
+        public static FastHashSet ToFastSet(this IEnumerable<int> enumerable)
         {
-            var fastSet = new FastSet();
+            var fastSet = new FastHashSet();
 
             foreach (var item in enumerable)
             {

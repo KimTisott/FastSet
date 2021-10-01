@@ -1,18 +1,18 @@
 ﻿using BenchmarkDotNet.Attributes;
 using System.Collections.Generic;
 
-namespace FastCollections.Benchmarks.HashSet
+namespace FastCollections.Benchmarks
 {
     public class HashSet_Add : BenchmarkBase
     {
         [Benchmark, BenchmarkCategory("Add")]
-        public void FastSet()
+        public void FastHashSet()
         {
-            var fastSet = new FastSet();
+            var fastHashSet = new FastHashSet();
 
             for (var i = 0; i < Size; i++)
             {
-                fastSet.Add(i);
+                fastHashSet.Add(i);
             }
         }
 
