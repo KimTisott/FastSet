@@ -4,7 +4,7 @@
  - Collections
    - BitArray (WIP)
  - Generic Collections
-   - [HashSet](https://github.com/KimTisott/FastCollections/blob/main/FastCollections/FastSet.cs)
+   - [HashSet](https://github.com/KimTisott/FastCollections/blob/main/FastCollections/FastHashSet.cs)
 
 ## Features
 
