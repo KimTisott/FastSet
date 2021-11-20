@@ -7,13 +7,10 @@ namespace FastSet.Benchmarks
         static void Main()
         {
 #if DEBUG
-            var bench = new BitArray_And();
-            bench.BitArray();
-            bench.FastBitArray();
+            var bench = new Int32();
+            bench.FastSet_Add();
 #else
-            BenchmarkRunner.Run<HashSet_Add>();
-            BenchmarkRunner.Run<HashSet_Contains>();
-            BenchmarkRunner.Run<HashSet_Remove>();
+            BenchmarkRunner.Run<Int32>();
 #endif
         }
     }

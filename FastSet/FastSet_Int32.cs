@@ -7,22 +7,42 @@ namespace FastSet
     {
         int[] dictionaries;
         int BufferSize => dictionaries.Length * 32;
+        public int Count;
 
         public FastSet_Int32()
         {
             Init();
         }
 
-        public void Add(int index)
+        public FastSet_Int32(IEnumerable<int> enumerable)
+        {
+            Init();
+
+            foreach (var item in enumerable)
+            {
+                TryAdd(item);
+            }
+        }
+
+        public bool TryAdd(int index)
         {
             if (index < 0)
-                return;
+                return false;
 
             var dictionaryIndex = index >> 5;
 
-            CheckDictionarySize(dictionaryIndex);
+            var position = index % 32;
 
-            dictionaries[dictionaryIndex] |= 1 << (index % 32);
+            if (dictionaries[dictionaryIndex] >> position == 1)
+                return false;
+
+            Resize(dictionaryIndex);
+
+            dictionaries[dictionaryIndex] |= 1 << position;
+
+            Count++;
+
+            return true;
         }
 
         public void Init()
@@ -46,7 +66,7 @@ namespace FastSet
             dictionaries[index >> 5] ^= 1 << (index % 32);
         }
 
-        void CheckDictionarySize(int dictionaryIndex)
+        void Resize(int dictionaryIndex)
         {
             var necessarySize = dictionaryIndex + 1;
 
@@ -67,7 +87,7 @@ namespace FastSet
 
             foreach (var item in enumerable)
             {
-                fastSet.Add(item);
+                fastSet.TryAdd(item);
             }
 
             return fastSet;
