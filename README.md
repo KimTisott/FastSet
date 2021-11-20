@@ -1,23 +1,9 @@
-# FastCollections
- Faster implementations of the following .NET collections:
- 
- - Collections
-   - BitArray (WIP)
- - Generic Collections
-   - [HashSet](https://github.com/KimTisott/FastCollections/blob/main/FastCollections/FastHashSet.cs)
+# FastSet
+ Faster implementations of data sets
 
-## Features
+## Types
 
-### General
-
-- Faster data operations
-- Reduced memory allocations
-- Additional helper extensions
-
-#### HashSet
-
-- Bit key
-- Index-based dictionary
+- Int32
 
 ## Benchmarks
 
