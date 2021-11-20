@@ -1,5 +1,5 @@
 # FastSet
- Faster implementations of data sets
+ Faster implementations of data sets.
 
 ## Types
 
@@ -15,9 +15,9 @@ Intel Core i5-10300H CPU 2.50GHz, 1 CPU, 8 logical and 4 physical cores
   DefaultJob : .NET 5.0.7 (5.0.721.25508), X64 RyuJIT
  ```
  
-### HashSet
+### Int32
 
-#### Int32 x1000000
+#### x1000000
 
 |  Method | Categories |      Mean | Code Size |    Gen 0 |    Gen 1 |    Gen 2 |    Allocated |
 |-------- |----------- |----------:|----------:|---------:|---------:|---------:|-------------:|
