@@ -15,13 +15,18 @@ namespace FastSet
             Init();
         }
 
-        public FastSet_Int64(IEnumerable<long> enumerable)
+        public FastSet_Int64(IEnumerable<long> values)
         {
             Init();
 
-            foreach (var item in enumerable)
+            foreach (var value in values)
             {
-                TryAdd(item);
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(values), value, $"Value should be between {default(long)} and {long.MaxValue}");
+                }
+
+                TryAdd(value);
             }
         }
 

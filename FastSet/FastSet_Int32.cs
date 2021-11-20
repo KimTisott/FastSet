@@ -15,13 +15,18 @@ namespace FastSet
             Init();
         }
 
-        public FastSet_Int32(IEnumerable<int> enumerable)
+        public FastSet_Int32(IEnumerable<int> values)
         {
             Init();
 
-            foreach (var item in enumerable)
+            foreach (var value in values)
             {
-                TryAdd(item);
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(values), value, $"Value should be between {default(int)} and {int.MaxValue}");
+                }
+
+                TryAdd(value);
             }
         }
 
@@ -39,10 +44,10 @@ namespace FastSet
 
             var position = index % 32;
 
+            Resize(dictionaryIndex);
+
             if (((dictionaries[dictionaryIndex] >> position) & 1) != 0)
                 return false;
-
-            Resize(dictionaryIndex);
 
             dictionaries[dictionaryIndex] |= 1 << position;
 
@@ -77,6 +82,8 @@ namespace FastSet
 
             return true;
         }
+
+        public int this[int index] => dictionaries[index];
 
         void Resize(int dictionaryIndex)
         {
