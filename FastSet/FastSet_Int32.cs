@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace FastSet
 {
-    public class FastSet
+    public class FastSet_Int32
     {
         int[] dictionaries;
         int BufferSize => dictionaries.Length * 32;
 
-        public FastSet()
+        public FastSet_Int32()
         {
-            Clear();
+            Init();
         }
 
         public void Add(int index)
@@ -25,7 +25,7 @@ namespace FastSet
             dictionaries[dictionaryIndex] |= 1 << (index % 32);
         }
 
-        public void Clear()
+        public void Init()
         {
             dictionaries = new int[1];
         }
@@ -61,9 +61,9 @@ namespace FastSet
 
     public static class FastSetExtensions
     {
-        public static FastSet ToFastSet(this IEnumerable<int> enumerable)
+        public static FastSet_Int32 ToFastSet(this IEnumerable<int> enumerable)
         {
-            var fastSet = new FastSet();
+            var fastSet = new FastSet_Int32();
 
             foreach (var item in enumerable)
             {

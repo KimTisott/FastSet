@@ -8,7 +8,7 @@ namespace FastSet.Benchmarks
         [Benchmark, BenchmarkCategory("Add")]
         public void FastSet()
         {
-            var fastSet = new FastSet();
+            var fastSet = new FastSet_Int32();
 
             for (var i = 0; i < Size; i++)
             {
