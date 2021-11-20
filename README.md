@@ -1,6 +1,6 @@
 # FastSet
 
-Fastest implementation of the .NET HashSet.
+Fastest implementation of the [.NET HashSet](https://docs.microsoft.com/dotnet/api/system.collections.generic.hashset-1?view=net-6.0).
 
 ## Features
 
