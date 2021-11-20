@@ -3,19 +3,19 @@ using System.Collections.Generic;
 
 namespace FastSet
 {
-    public class FastSet_Int32
+    public class FastSet_Int64
     {
-        int[] dictionaries;
-        int _bufferSize => dictionaries.Length * 32;
+        long[] dictionaries;
+        int _bufferSize => dictionaries.Length * 64;
         int _count;
         public int Count => _count;
 
-        public FastSet_Int32()
+        public FastSet_Int64()
         {
             Init();
         }
 
-        public FastSet_Int32(IEnumerable<int> enumerable)
+        public FastSet_Int64(IEnumerable<long> enumerable)
         {
             Init();
 
@@ -27,17 +27,17 @@ namespace FastSet
 
         public void Init()
         {
-            dictionaries = new int[1];
+            dictionaries = new long[1];
         }
 
-        public bool TryAdd(int index)
+        public bool TryAdd(long index)
         {
             if (index < 0)
                 return false;
 
-            var dictionaryIndex = index >> 5;
+            var dictionaryIndex = (int)(index >> 6);
 
-            var position = index % 32;
+            var position = (int)(index % 64);
 
             if (((dictionaries[dictionaryIndex] >> position) & 1) != 0)
                 return false;
@@ -51,22 +51,22 @@ namespace FastSet
             return true;
         }
 
-        public bool Contains(int index)
+        public bool Contains(long index)
         {
             if (index < 0 || index >= _bufferSize)
                 return false;
 
-            return ((1 << (index % 32)) & dictionaries[index >> 5]) != 0;
+            return ((1 << (int)(index % 64)) & dictionaries[index >> 6]) != 0;
         }
 
-        public bool TryRemove(int index)
+        public bool TryRemove(long index)
         {
             if (index < 0 || index > _bufferSize)
                 return false;
 
-            var dictionaryIndex = index >> 5;
+            var dictionaryIndex = (int)(index >> 6);
 
-            var position = index % 32;
+            var position = (int)(index % 64);
 
             if (((dictionaries[dictionaryIndex] >> position) & 1) == 0)
                 return false;

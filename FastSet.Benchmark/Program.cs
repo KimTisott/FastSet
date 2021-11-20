@@ -9,7 +9,9 @@ namespace FastSet.Benchmarks
 #if DEBUG
 
 #else
-            BenchmarkRunner.Run<Int32>();
+            BenchmarkRunner.Run<Add>();
+            BenchmarkRunner.Run<Contains>();
+            BenchmarkRunner.Run<Remove>();
 #endif
         }
     }
