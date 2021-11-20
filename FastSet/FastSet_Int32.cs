@@ -7,7 +7,7 @@ namespace FastSet
     {
         int[] dictionaries;
         int BufferSize => dictionaries.Length * 32;
-        public int Count;
+        public int Count { get; }
 
         public FastSet_Int32()
         {
@@ -33,7 +33,7 @@ namespace FastSet
 
             var position = index % 32;
 
-            if (dictionaries[dictionaryIndex] >> position == 1)
+            if (((dictionaries[dictionaryIndex] >> position) & 1) != 0)
                 return false;
 
             Resize(dictionaryIndex);
