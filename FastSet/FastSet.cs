@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FastCollections
+namespace FastSet
 {
-    public class FastHashSet
+    public class FastSet
     {
-        private int[] dictionaries;
-        private int BufferSize => dictionaries.Length * 32;
+        int[] dictionaries;
+        int BufferSize => dictionaries.Length * 32;
 
-        public FastHashSet()
+        public FastSet()
         {
             Clear();
         }
@@ -46,7 +46,7 @@ namespace FastCollections
             dictionaries[index >> 5] ^= 1 << (index % 32);
         }
 
-        private void CheckDictionarySize(int dictionaryIndex)
+        void CheckDictionarySize(int dictionaryIndex)
         {
             var necessarySize = dictionaryIndex + 1;
 
@@ -61,9 +61,9 @@ namespace FastCollections
 
     public static class FastSetExtensions
     {
-        public static FastHashSet ToFastSet(this IEnumerable<int> enumerable)
+        public static FastSet ToFastSet(this IEnumerable<int> enumerable)
         {
-            var fastSet = new FastHashSet();
+            var fastSet = new FastSet();
 
             foreach (var item in enumerable)
             {

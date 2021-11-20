@@ -1,15 +1,15 @@
 ﻿using BenchmarkDotNet.Attributes;
 
-namespace FastCollections.Benchmarks
+namespace FastSet.Benchmarks
 {
     public class HashSet_Contains : BenchmarkBase
     {
         [Benchmark, BenchmarkCategory("Contains")]
-        public void FastHashSet()
+        public void FastSet()
         {
             for (var i = 0; i < Size; i++)
             {
-                FastHashSetData.Contains(i);
+                FastSetData.Contains(i);
             }
         }
 
