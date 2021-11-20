@@ -6,7 +6,7 @@ namespace FastSet.Benchmarks
 {
     public class Int32 : BenchmarkBase
     {
-        [Params(1, 100, 10000, 1000000)]
+        [Params(1, 1_000, 1_000_000, 1_000_000_000)]
         public int Count { get; set; }
 
         [Benchmark]

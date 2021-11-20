@@ -6,8 +6,9 @@ namespace FastSet
     public class FastSet_Int32
     {
         int[] dictionaries;
-        int BufferSize => dictionaries.Length * 32;
-        public int Count { get; }
+        int _bufferSize => dictionaries.Length * 32;
+        int _count;
+        public int Count => _count;
 
         public FastSet_Int32()
         {
@@ -40,7 +41,7 @@ namespace FastSet
 
             dictionaries[dictionaryIndex] |= 1 << position;
 
-            Count++;
+            _count++;
 
             return true;
         }
@@ -52,7 +53,7 @@ namespace FastSet
 
         public bool Contains(int index)
         {
-            if (index < 0 || index >= BufferSize)
+            if (index < 0 || index >= _bufferSize)
                 return false;
 
             return ((1 << (index % 32)) & dictionaries[index >> 5]) != 0;
@@ -60,7 +61,7 @@ namespace FastSet
 
         public void Remove(int index)
         {
-            if (index < 0 || index > BufferSize)
+            if (index < 0 || index > _bufferSize)
                 return;
 
             dictionaries[index >> 5] ^= 1 << (index % 32);
