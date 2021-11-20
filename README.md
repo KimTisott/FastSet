@@ -14,7 +14,7 @@ FastSet_Int32 set = ienum.ToFastSet();
 ### Generate a set from IEnumerable<T>
 
 ```csharp
-FastSet_Int32 set = FastSet.Range_Int32(1, 100);
+FastSet_Int32 set = new(Enumerable.Range(1, 100));
 ```
 
 ### Improved Add, Contains and Remove
