@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Running;
 
-namespace FastSet.Benchmarks
+namespace FastestCollections.Benchmarks
 {
     class Program
     {

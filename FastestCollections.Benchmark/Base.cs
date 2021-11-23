@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 
-namespace FastSet.Benchmarks
+namespace FastestCollections.Benchmarks
 {
     [DisassemblyDiagnoser, MemoryDiagnoser, ReturnValueValidator]
     public class BenchmarkBase

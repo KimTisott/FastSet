@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FastSet\FastSet.csproj" />
+    <ProjectReference Include="..\FastestCollections\FastestCollections.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,38 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FastSet
+namespace FastestCollections
 {
-    public class FastSet_Int32
+    public class NumericCollection<T> where T : struct
     {
-        int[] dictionaries;
-        int _bufferSize => dictionaries.Length * 32;
+        int[] _data;
+        int BufferSize => _data.Length * 32;
+
         int _count;
         public int Count => _count;
 
-        public FastSet_Int32()
+        public NumericCollection()
         {
             Init();
         }
 
-        public FastSet_Int32(IEnumerable<int> values)
+        public NumericCollection(IEnumerable<T> values)
         {
             Init();
 
             foreach (var value in values)
             {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(values), value, $"Value should be between {default(int)} and {int.MaxValue}");
-                }
+                var num = (int)(object)value;
 
-                TryAdd(value);
+                if (num < 0)
+                    throw new ArgumentOutOfRangeException(nameof(values), value, $"Value should be between {default(int)} and {int.MaxValue}");
+
+                TryAdd(num);
             }
         }
 
         public void Init()
         {
-            dictionaries = new int[1];
+            _data = new int[1];
         }
 
         public bool TryAdd(int index)
@@ -46,10 +47,10 @@ namespace FastSet
 
             Resize(dictionaryIndex);
 
-            if (((dictionaries[dictionaryIndex] >> position) & 1) != 0)
+            if (((_data[dictionaryIndex] >> position) & 1) != 0)
                 return false;
 
-            dictionaries[dictionaryIndex] |= 1 << position;
+            _data[dictionaryIndex] |= 1 << position;
 
             _count++;
 
@@ -58,43 +59,43 @@ namespace FastSet
 
         public bool Contains(int index)
         {
-            if (index < 0 || index >= _bufferSize)
+            if (index < 0 || index >= BufferSize)
                 return false;
 
-            return ((1 << (index % 32)) & dictionaries[index >> 5]) != 0;
+            return ((1 << (index % 32)) & _data[index >> 5]) != 0;
         }
 
         public bool TryRemove(int index)
         {
-            if (index < 0 || index > _bufferSize)
+            if (index < 0 || index > BufferSize)
                 return false;
 
             var dictionaryIndex = index >> 5;
 
             var position = index % 32;
 
-            if (((dictionaries[dictionaryIndex] >> position) & 1) == 0)
+            if (((_data[dictionaryIndex] >> position) & 1) == 0)
                 return false;
 
-            dictionaries[dictionaryIndex] ^= 1 << position;
+            _data[dictionaryIndex] ^= 1 << position;
 
             _count--;
 
             return true;
         }
 
-        public int this[int index] => dictionaries[index];
+        public int this[int index] => _data[index];
 
         void Resize(int dictionaryIndex)
         {
             var necessarySize = dictionaryIndex + 1;
 
-            if (necessarySize < dictionaries.Length)
+            if (necessarySize < _data.Length)
                 return;
 
-            var doubleSize = dictionaries.Length * 2;
+            var doubleSize = _data.Length * 2;
 
-            Array.Resize(ref dictionaries, necessarySize > doubleSize ? necessarySize : doubleSize);
+            Array.Resize(ref _data, necessarySize > doubleSize ? necessarySize : doubleSize);
         }
     }
 }

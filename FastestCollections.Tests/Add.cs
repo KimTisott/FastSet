@@ -1,14 +1,14 @@
 using System;
 using Xunit;
 
-namespace FastSet.Tests
+namespace FastestCollections.Tests
 {
     public class Unit
     {
         [Fact]
-        public void Int32_Add()
+        public void Add()
         {
-            FastSet_Int32 set = new();
+            NumericCollection<int> set = new();
 
             Assert.False(set.TryAdd(int.MinValue));
             Assert.True(set.TryAdd(default));
@@ -18,9 +18,9 @@ namespace FastSet.Tests
         }
 
         [Fact]
-        public void Int32_Contains()
+        public void Contains()
         {
-            FastSet_Int32 set = new(FastSet.Range_Int32(default, 3));
+            NumericCollection<int> set = new(NumericCollection.Range(default, 3));
 
             Assert.True(set.Contains(default));
             Assert.False(set.Contains(int.MinValue));
@@ -30,9 +30,9 @@ namespace FastSet.Tests
         }
 
         [Fact]
-        public void Int32_Remove()
+        public void Remove()
         {
-            FastSet_Int32 set = new(FastSet.Range_Int32(default, 3));
+            NumericCollection<int> set = new(NumericCollection.Range(default, 3));
 
             Assert.False(set.TryRemove(int.MinValue));
             Assert.False(set.TryRemove(int.MaxValue));
