@@ -1,6 +1,6 @@
 # FastestCollections
 
-Fastest implementations of the .NET Collections
+Fastest implementations of .NET Collections.
 
 ## Benchmarks
 
