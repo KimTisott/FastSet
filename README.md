@@ -1,6 +1,6 @@
 # FastestCollections
 
-Fastest implementations of the .NET Collections
+Fastest implementations of the .NET Collections.
 
 ## Benchmarks
 
@@ -44,9 +44,3 @@ Intel Core i5-10300H CPU 2.50GHz, 1 CPU, 8 logical and 4 physical cores
 | HashSet |    1000 |     19,470.94 ns |     337.889 ns |       535.928 ns |     779 B |   14.0076 |        - |        - |     58,712 B |
 | Fastest | 1000000 | 10,304,192.55 ns |  69,801.152 ns |    58,287.124 ns |     961 B |   31.2500 |  31.2500 |  31.2500 |    262,626 B |
 | HashSet | 1000000 | 30,037,469.93 ns | 598,199.367 ns | 1,300,436.194 ns |     779 B | 1000.0000 | 968.7500 | 968.7500 | 43,111,494 B |
-
-## Roadmap
-
-1. Support Int8, Int16, Int64
-2. Zero memory allocation
-3. Thread safety

@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FastestCollections.Benchmarks
 {
@@ -9,7 +10,7 @@ namespace FastestCollections.Benchmarks
         [Benchmark]
         public void Fastest()
         {
-            var collection = new NumericCollection<int>(NumericCollection.Range(1, Count));
+            var collection = new NumericCollection(Enumerable.Range(1, Count));
 
             for (int i = 0; i < Count; i++)
             {
@@ -20,7 +21,7 @@ namespace FastestCollections.Benchmarks
         [Benchmark]
         public void HashSet()
         {
-            var set = new HashSet<int>(NumericCollection.Range(1, Count));
+            var set = new HashSet<int>(Enumerable.Range(1, Count));
 
             for (int i = 0; i < Count; i++)
             {

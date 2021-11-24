@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Xunit;
 
 namespace FastestCollections.Tests
@@ -8,37 +9,37 @@ namespace FastestCollections.Tests
         [Fact]
         public void Add()
         {
-            NumericCollection<int> set = new();
+            NumericCollection nc = new();
 
-            Assert.False(set.TryAdd(int.MinValue));
-            Assert.True(set.TryAdd(default));
-            Assert.True(set.TryAdd(int.MaxValue));
-            Assert.False(set.TryAdd(default));
-            Assert.Throws<ArgumentOutOfRangeException>(() => set = new(new int[] { int.MinValue, default, int.MaxValue }));
+            Assert.False(nc.TryAdd(int.MinValue));
+            Assert.True(nc.TryAdd(default));
+            Assert.True(nc.TryAdd(int.MaxValue));
+            Assert.False(nc.TryAdd(default));
+            Assert.Throws<ArgumentOutOfRangeException>(() => nc = new(new int[] { int.MinValue, default, int.MaxValue }));
         }
 
         [Fact]
         public void Contains()
         {
-            NumericCollection<int> set = new(NumericCollection.Range(default, 3));
+            NumericCollection nc = new(Enumerable.Range(default, 3));
 
-            Assert.True(set.Contains(default));
-            Assert.False(set.Contains(int.MinValue));
-            Assert.False(set.Contains(int.MaxValue));
-            Assert.False(set.Contains(3));
-            Assert.True(set.Contains(2));
+            Assert.True(nc.Contains(default));
+            Assert.False(nc.Contains(int.MinValue));
+            Assert.False(nc.Contains(int.MaxValue));
+            Assert.False(nc.Contains(3));
+            Assert.True(nc.Contains(2));
         }
 
         [Fact]
         public void Remove()
         {
-            NumericCollection<int> set = new(NumericCollection.Range(default, 3));
+            NumericCollection nc = new(Enumerable.Range(default, 3));
 
-            Assert.False(set.TryRemove(int.MinValue));
-            Assert.False(set.TryRemove(int.MaxValue));
-            Assert.True(set.TryRemove(default));
-            Assert.False(set.TryRemove(default));
-            Assert.True(set.TryRemove(2));
+            Assert.False(nc.TryRemove(int.MinValue));
+            Assert.False(nc.TryRemove(int.MaxValue));
+            Assert.True(nc.TryRemove(default));
+            Assert.False(nc.TryRemove(default));
+            Assert.True(nc.TryRemove(2));
         }
     }
 }

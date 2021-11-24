@@ -2,11 +2,11 @@
 
 namespace FastestCollections
 {
-    public static class NumericCollection
+    public static class Fastest
     {
-        public static NumericCollection<int> ToNumericCollection(this IEnumerable<int> enumerable)
+        public static NumericCollection ToNumericCollection(this IEnumerable<int> enumerable)
         {
-            NumericCollection<int> collection = new();
+            NumericCollection collection = new();
 
             foreach(var item in enumerable)
             {

@@ -9,7 +9,7 @@ namespace FastestCollections.Benchmarks
         [Benchmark]
         public void Fastest()
         {
-            var collection = new NumericCollection<int>();
+            var collection = new NumericCollection();
 
             for (int i = 0; i < Count; i++)
             {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FastestCollections
 {
-    public class NumericCollection<T> where T : struct
+    public class NumericCollection
     {
         int[] _data;
         int BufferSize => _data.Length * 32;
@@ -16,13 +16,13 @@ namespace FastestCollections
             Init();
         }
 
-        public NumericCollection(IEnumerable<T> values)
+        public NumericCollection(IEnumerable<int> values)
         {
             Init();
 
             foreach (var value in values)
             {
-                var num = (int)(object)value;
+                var num = value;
 
                 if (num < 0)
                     throw new ArgumentOutOfRangeException(nameof(values), value, $"Value should be between {default(int)} and {int.MaxValue}");
