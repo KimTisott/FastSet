@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace FastestCollections
 {
-    public class NumericCollection
+    public class NumericCollection : IEnumerable<int>
     {
         int[] _data;
+
         int BufferSize => _data.Length * 32;
 
         int _count;
@@ -39,7 +41,7 @@ namespace FastestCollections
         public bool TryAdd(int index)
         {
             if (index < 0)
-                return false;
+                return default;
 
             var dictionaryIndex = index >> 5;
 
@@ -48,7 +50,7 @@ namespace FastestCollections
             Resize(dictionaryIndex);
 
             if (((_data[dictionaryIndex] >> position) & 1) != 0)
-                return false;
+                return default;
 
             _data[dictionaryIndex] |= 1 << position;
 
@@ -60,7 +62,7 @@ namespace FastestCollections
         public bool Contains(int index)
         {
             if (index < 0 || index >= BufferSize)
-                return false;
+                return default;
 
             return ((1 << (index % 32)) & _data[index >> 5]) != 0;
         }
@@ -68,14 +70,14 @@ namespace FastestCollections
         public bool TryRemove(int index)
         {
             if (index < 0 || index > BufferSize)
-                return false;
+                return default;
 
             var dictionaryIndex = index >> 5;
 
             var position = index % 32;
 
             if (((_data[dictionaryIndex] >> position) & 1) == 0)
-                return false;
+                return default;
 
             _data[dictionaryIndex] ^= 1 << position;
 
@@ -84,7 +86,16 @@ namespace FastestCollections
             return true;
         }
 
-        public int this[int index] => _data[index];
+        public int? this[int index]
+        {
+            get
+            {
+                if (index < 0 || index > BufferSize)
+                    return default;
+
+                return (_data[index >> 5] & (1 << (index % 32))) > 0 ? 1 : null;
+            }
+        }
 
         void Resize(int dictionaryIndex)
         {
@@ -96,6 +107,16 @@ namespace FastestCollections
             var doubleSize = _data.Length * 2;
 
             Array.Resize(ref _data, necessarySize > doubleSize ? necessarySize : doubleSize);
+        }
+
+        public IEnumerator<int> GetEnumerator()
+        {
+            return ((IEnumerable<int>)_data).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _data.GetEnumerator();
         }
     }
 }

@@ -41,5 +41,17 @@ namespace FastestCollections.Tests
             Assert.False(nc.TryRemove(default));
             Assert.True(nc.TryRemove(2));
         }
+
+        [Fact]
+        public void Lookup()
+        {
+            NumericCollection nc = new(Enumerable.Range(default, 3));
+
+            Assert.Null(nc[-1]);
+            Assert.Equal(1, nc[0]);
+            Assert.Equal(1, nc[2]);
+            Assert.Null(nc[3]);
+            Assert.Null(nc[int.MaxValue]);
+        }
     }
 }

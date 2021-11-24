@@ -6,25 +6,31 @@ namespace FastestCollections
     {
         public static NumericCollection ToNumericCollection(this IEnumerable<int> enumerable)
         {
-            NumericCollection collection = new();
+            NumericCollection nc = new();
 
             foreach(var item in enumerable)
             {
-                collection.TryAdd(item);
+                nc.TryAdd(item);
             }
 
-            return collection;
+            return nc;
         }
 
-        public static IEnumerable<int> Range(int start, int count)
+        public static List<int> ToList(this NumericCollection nc)
         {
-            var limit = start + count;
+            List<int> list = new();
 
-            while (start < limit)
+            foreach (var item in nc)
             {
-                yield return start;
-                start++;
+                for (var i = 0; i < 32; i++)
+                {
+
+                }
+
+                list.Add(item);
             }
+
+            return list;
         }
     }
 }

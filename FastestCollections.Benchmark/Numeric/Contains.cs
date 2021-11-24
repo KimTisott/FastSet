@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FastestCollections.Benchmarks
+namespace FastestCollections.Benchmarks.Numeric
 {
-    [BenchmarkCategory(nameof(Remove))]
-    public class Remove : BenchmarkBase
+    [BenchmarkCategory(nameof(Contains))]
+    public class Contains : BenchmarkBase
     {
         [Benchmark]
         public void Fastest()
@@ -14,7 +14,7 @@ namespace FastestCollections.Benchmarks
 
             for (int i = 0; i < Count; i++)
             {
-                collection.TryRemove(i);
+                collection.Contains(i);
             }
         }
 
@@ -25,7 +25,7 @@ namespace FastestCollections.Benchmarks
 
             for (int i = 0; i < Count; i++)
             {
-                set.Remove(i);
+                set.Contains(i);
             }
         }
     }

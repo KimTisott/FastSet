@@ -9,9 +9,9 @@ namespace FastestCollections.Benchmarks
 #if DEBUG
 
 #else
-            BenchmarkRunner.Run<Add>();
-            BenchmarkRunner.Run<Contains>();
-            BenchmarkRunner.Run<Remove>();
+            BenchmarkRunner.Run<Numeric.Add>();
+            BenchmarkRunner.Run<Numeric.Contains>();
+            BenchmarkRunner.Run<Numeric.Remove>();
 #endif
         }
     }
