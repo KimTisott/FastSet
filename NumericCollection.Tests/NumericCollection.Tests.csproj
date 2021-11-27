@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FastestCollections\FastestCollections.csproj" />
+    <ProjectReference Include="..\NumericCollection\NumericCollection.csproj" />
   </ItemGroup>
 
 </Project>
