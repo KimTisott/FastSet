@@ -2,7 +2,7 @@
 
 Fastest implementation of a .NET number collection.
 
-## Properties
+## Features
 
 | Lookup | Duplicate | Ordered | Sorted | Null | Min |        Max |
 |------- |---------- |-------- |------- |----- |---- |----------- |
