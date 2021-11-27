@@ -47,11 +47,11 @@ namespace FastestCollections.Tests
         {
             NumericCollection nc = new(Enumerable.Range(default, 3));
 
-            Assert.Null(nc[-1]);
-            Assert.Equal(1, nc[0]);
-            Assert.Equal(1, nc[2]);
-            Assert.Null(nc[3]);
-            Assert.Null(nc[int.MaxValue]);
+            Assert.False(nc[-1]);
+            Assert.True(nc[0]);
+            Assert.True(nc[2]);
+            Assert.False(nc[3]);
+            Assert.False(nc[int.MaxValue]);
         }
     }
 }

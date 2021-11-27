@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace FastestCollections
 {
-    public class NumericCollection : IEnumerable<int>
+    public class NumericCollection
     {
         int[] _data;
 
@@ -86,14 +85,14 @@ namespace FastestCollections
             return true;
         }
 
-        public int? this[int index]
+        public bool this[int index]
         {
             get
             {
                 if (index < 0 || index > BufferSize)
                     return default;
 
-                return (_data[index >> 5] & (1 << (index % 32))) > 0 ? 1 : null;
+                return (_data[index >> 5] & (1 << (index % 32))) > 0;
             }
         }
 
@@ -107,16 +106,6 @@ namespace FastestCollections
             var doubleSize = _data.Length * 2;
 
             Array.Resize(ref _data, necessarySize > doubleSize ? necessarySize : doubleSize);
-        }
-
-        public IEnumerator<int> GetEnumerator()
-        {
-            return ((IEnumerable<int>)_data).GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _data.GetEnumerator();
         }
     }
 }
