@@ -2,7 +2,7 @@
 
 namespace FastestCollections.Benchmarks
 {
-    [DisassemblyDiagnoser, MemoryDiagnoser, ReturnValueValidator]
+    [MemoryDiagnoser(false), ReturnValueValidator]
     public class BenchmarkBase
     {
         [Params(1, 1_000, 1_000_000)]
