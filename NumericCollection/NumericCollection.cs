@@ -32,24 +32,25 @@ namespace FastestCollections
             }
         }
 
-        public void Init()
+        /// <summary>
+        /// Adds <paramref name="value"/> to the collection.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <returns><see langword="true"/> if <paramref name="value"/> is added; otherwise, <see langword="false"/>.</returns>
+        public bool TryAdd(int value)
         {
-            _data = new int[1];
-        }
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value), value, $"Value should be between {default(int)} and {int.MaxValue}");
 
-        public bool TryAdd(int index)
-        {
-            if (index < 0)
-                return default;
+            var dictionaryIndex = value >> 5;
 
-            var dictionaryIndex = index >> 5;
+            var position = value % 32;
 
-            var position = index % 32;
-
-            Resize(dictionaryIndex);
+            EnsureCapacity(dictionaryIndex);
 
             if (((_data[dictionaryIndex] >> position) & 1) != 0)
-                return default;
+                return false;
 
             _data[dictionaryIndex] |= 1 << position;
 
@@ -58,25 +59,26 @@ namespace FastestCollections
             return true;
         }
 
-        public bool Contains(int index)
+        /// <summary>
+        /// Removes <paramref name="value"/> from the collection.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <returns><see langword="true"/> if <paramref name="value"/> is removed; otherwise, <see langword="false"/>.</returns>
+        public bool TryRemove(int value)
         {
-            if (index < 0 || index >= BufferSize)
-                return default;
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value), value, $"Value should be between {default(int)} and {int.MaxValue}");
 
-            return ((1 << (index % 32)) & _data[index >> 5]) != 0;
-        }
+            if (value > BufferSize)
+                return false;
 
-        public bool TryRemove(int index)
-        {
-            if (index < 0 || index > BufferSize)
-                return default;
+            var dictionaryIndex = value >> 5;
 
-            var dictionaryIndex = index >> 5;
-
-            var position = index % 32;
+            var position = value % 32;
 
             if (((_data[dictionaryIndex] >> position) & 1) == 0)
-                return default;
+                return false;
 
             _data[dictionaryIndex] ^= 1 << position;
 
@@ -85,18 +87,49 @@ namespace FastestCollections
             return true;
         }
 
-        public bool this[int index]
+        /// <summary>
+        /// Determines whether <paramref name="value"/> is in the collection.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <returns><see langword="true"/> if <paramref name="value"/> is found; otherwise, <see langword="false"/>.</returns>
+        public bool TryContains(int value)
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value), value, $"Value should be between {default(int)} and {int.MaxValue}");
+
+            if (value >= BufferSize)
+                return false;
+
+            return ((1 << (value % 32)) & _data[value >> 5]) != 0;
+        }
+
+        /// <summary>
+        /// Determines whether <paramref name="value"/> is in the collection.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <returns><see langword="true"/> if <paramref name="value"/> is found; otherwise, <see langword="false"/>.</returns>
+        public bool this[int value]
         {
             get
             {
-                if (index < 0 || index > BufferSize)
-                    return default;
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException(nameof(value), value, $"Value should be between {default(int)} and {int.MaxValue}");
 
-                return (_data[index >> 5] & (1 << (index % 32))) > 0;
+                if (value > BufferSize)
+                    return false;
+
+                return ((1 << (value % 32)) & _data[value >> 5]) != 0;
             }
         }
 
-        void Resize(int dictionaryIndex)
+        void Init()
+        {
+            _data = new int[1];
+        }
+
+        void EnsureCapacity(int dictionaryIndex)
         {
             var necessarySize = dictionaryIndex + 1;
 

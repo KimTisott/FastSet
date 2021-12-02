@@ -11,7 +11,7 @@ namespace FastestCollections.Tests
         {
             NumericCollection nc = new();
 
-            Assert.False(nc.TryAdd(int.MinValue));
+            Assert.Throws<ArgumentOutOfRangeException>(() => nc.TryAdd(int.MinValue));
             Assert.True(nc.TryAdd(default));
             Assert.True(nc.TryAdd(int.MaxValue));
             Assert.False(nc.TryAdd(default));
@@ -23,11 +23,11 @@ namespace FastestCollections.Tests
         {
             NumericCollection nc = new(Enumerable.Range(default, 3));
 
-            Assert.True(nc.Contains(default));
-            Assert.False(nc.Contains(int.MinValue));
-            Assert.False(nc.Contains(int.MaxValue));
-            Assert.False(nc.Contains(3));
-            Assert.True(nc.Contains(2));
+            Assert.True(nc.TryContains(default));
+            Assert.Throws<ArgumentOutOfRangeException>(() => nc.TryContains(int.MinValue));
+            Assert.False(nc.TryContains(int.MaxValue));
+            Assert.False(nc.TryContains(3));
+            Assert.True(nc.TryContains(2));
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace FastestCollections.Tests
         {
             NumericCollection nc = new(Enumerable.Range(default, 3));
 
-            Assert.False(nc.TryRemove(int.MinValue));
+            Assert.Throws<ArgumentOutOfRangeException>(() => nc.TryRemove(int.MinValue));
             Assert.False(nc.TryRemove(int.MaxValue));
             Assert.True(nc.TryRemove(default));
             Assert.False(nc.TryRemove(default));
@@ -47,7 +47,7 @@ namespace FastestCollections.Tests
         {
             NumericCollection nc = new(Enumerable.Range(default, 3));
 
-            Assert.False(nc[-1]);
+            Assert.Throws<ArgumentOutOfRangeException>(() => nc[-1]);
             Assert.True(nc[0]);
             Assert.True(nc[2]);
             Assert.False(nc[3]);

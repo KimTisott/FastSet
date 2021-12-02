@@ -14,7 +14,7 @@ namespace FastestCollections.Benchmarks.Numeric
 
             for (int i = 0; i < Count; i++)
             {
-                collection.Contains(i);
+                collection.TryContains(i);
             }
         }
 
