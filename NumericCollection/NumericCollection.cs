@@ -24,12 +24,11 @@ namespace FastestCollections
         /// Adds <paramref name="value"/> to the collection.
         /// </summary>
         /// <param name="value"></param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <returns><see langword="true"/> if <paramref name="value"/> is added; otherwise, <see langword="false"/>.</returns>
         public bool TryAdd(int value)
         {
             if (value < 0)
-                throw new RangeException(nameof(value), default(int), int.MaxValue);
+                return false;
 
             var dictionaryIndex = value >> 5;
 
@@ -58,14 +57,10 @@ namespace FastestCollections
         /// Removes <paramref name="value"/> from the collection.
         /// </summary>
         /// <param name="value"></param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <returns><see langword="true"/> if <paramref name="value"/> is removed; otherwise, <see langword="false"/>.</returns>
         public bool TryRemove(int value)
         {
-            if (value < 0)
-                throw new RangeException(nameof(value), default(int), int.MaxValue);
-
-            if (value > BufferSize)
+            if (value < 0 || value > BufferSize)
                 return false;
 
             var dictionaryIndex = value >> 5;
@@ -86,23 +81,13 @@ namespace FastestCollections
         /// Determines whether <paramref name="value"/> is in the collection.
         /// </summary>
         /// <param name="value"></param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <returns><see langword="true"/> if <paramref name="value"/> is found; otherwise, <see langword="false"/>.</returns>
         public bool TryContains(int value)
         {
-            if (value < 0)
-                throw new RangeException(nameof(value), default(int), int.MaxValue);
-
-            if (value >= BufferSize)
+            if (value < 0 || value >= BufferSize)
                 return false;
 
             return ((1 << (value % 32)) & _data[value >> 5]) != 0;
-        }
-
-        class RangeException : Exception
-        {
-            public RangeException(string paramName, object lower, object upper)
-                => throw new ArgumentOutOfRangeException(paramName, null, $"Value should be between {lower} and {upper}.");
         }
     }
 }
