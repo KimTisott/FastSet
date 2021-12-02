@@ -4,9 +4,9 @@ Fastest implementation of a .NET number collection.
 
 ## Features
 
-| Lookup | Duplicate | Ordered | Sorted | Null | Min |        Max |
-|------- |---------- |-------- |------- |----- |---- |----------- |
-|  Index |        No |      No |     No |   No |   0 | 2147483647 |
+| Duplicate | Ordered | Sorted | Null | Min |        Max |
+|---------- |-------- |------- |----- |---- |----------- |
+|        No |      No |     No |   No |   0 | 2147483647 |
 
 ## Benchmarks
 

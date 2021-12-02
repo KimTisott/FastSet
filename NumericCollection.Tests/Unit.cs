@@ -41,17 +41,5 @@ namespace FastestCollections.Tests
             Assert.False(nc.TryRemove(default));
             Assert.True(nc.TryRemove(2));
         }
-
-        [Fact]
-        public void Lookup()
-        {
-            NumericCollection nc = new(Enumerable.Range(default, 3));
-
-            Assert.Throws<ArgumentOutOfRangeException>(() => nc[-1]);
-            Assert.True(nc[0]);
-            Assert.True(nc[2]);
-            Assert.False(nc[3]);
-            Assert.False(nc[int.MaxValue]);
-        }
     }
 }

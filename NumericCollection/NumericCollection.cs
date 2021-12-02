@@ -5,31 +5,19 @@ namespace FastestCollections
 {
     public class NumericCollection
     {
-        int[] _data;
+        int[] _data = new int[1];
 
         int BufferSize => _data.Length * 32;
 
         int _count;
         public int Count => _count;
 
-        public NumericCollection()
-        {
-            Init();
-        }
+        public NumericCollection(){}
 
         public NumericCollection(IEnumerable<int> values)
         {
-            Init();
-
             foreach (var value in values)
-            {
-                var num = value;
-
-                if (num < 0)
-                    throw new ArgumentOutOfRangeException(nameof(values), value, $"Value should be between {default(int)} and {int.MaxValue}");
-
-                TryAdd(num);
-            }
+                TryAdd(value);
         }
 
         /// <summary>
@@ -41,13 +29,20 @@ namespace FastestCollections
         public bool TryAdd(int value)
         {
             if (value < 0)
-                throw new ArgumentOutOfRangeException(nameof(value), value, $"Value should be between {default(int)} and {int.MaxValue}");
+                throw new RangeException(nameof(value), default(int), int.MaxValue);
 
             var dictionaryIndex = value >> 5;
 
             var position = value % 32;
 
-            EnsureCapacity(dictionaryIndex);
+            var necessarySize = dictionaryIndex + 1;
+
+            if (necessarySize >= _data.Length)
+            {
+                var doubleSize = _data.Length * 2;
+
+                Array.Resize(ref _data, necessarySize > doubleSize ? necessarySize : doubleSize);
+            }
 
             if (((_data[dictionaryIndex] >> position) & 1) != 0)
                 return false;
@@ -68,7 +63,7 @@ namespace FastestCollections
         public bool TryRemove(int value)
         {
             if (value < 0)
-                throw new ArgumentOutOfRangeException(nameof(value), value, $"Value should be between {default(int)} and {int.MaxValue}");
+                throw new RangeException(nameof(value), default(int), int.MaxValue);
 
             if (value > BufferSize)
                 return false;
@@ -96,7 +91,7 @@ namespace FastestCollections
         public bool TryContains(int value)
         {
             if (value < 0)
-                throw new ArgumentOutOfRangeException(nameof(value), value, $"Value should be between {default(int)} and {int.MaxValue}");
+                throw new RangeException(nameof(value), default(int), int.MaxValue);
 
             if (value >= BufferSize)
                 return false;
@@ -104,41 +99,10 @@ namespace FastestCollections
             return ((1 << (value % 32)) & _data[value >> 5]) != 0;
         }
 
-        /// <summary>
-        /// Determines whether <paramref name="value"/> is in the collection.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        /// <returns><see langword="true"/> if <paramref name="value"/> is found; otherwise, <see langword="false"/>.</returns>
-        public bool this[int value]
+        class RangeException : Exception
         {
-            get
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException(nameof(value), value, $"Value should be between {default(int)} and {int.MaxValue}");
-
-                if (value > BufferSize)
-                    return false;
-
-                return ((1 << (value % 32)) & _data[value >> 5]) != 0;
-            }
-        }
-
-        void Init()
-        {
-            _data = new int[1];
-        }
-
-        void EnsureCapacity(int dictionaryIndex)
-        {
-            var necessarySize = dictionaryIndex + 1;
-
-            if (necessarySize < _data.Length)
-                return;
-
-            var doubleSize = _data.Length * 2;
-
-            Array.Resize(ref _data, necessarySize > doubleSize ? necessarySize : doubleSize);
+            public RangeException(string paramName, object lower, object upper)
+                => throw new ArgumentOutOfRangeException(paramName, null, $"Value should be between {lower} and {upper}.");
         }
     }
 }
