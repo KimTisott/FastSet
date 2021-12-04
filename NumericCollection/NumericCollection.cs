@@ -17,7 +17,7 @@ namespace FastestCollections
         public NumericCollection(IEnumerable<int> values)
         {
             foreach (var value in values)
-                TryAdd(value);
+                Add(value);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace FastestCollections
         /// </summary>
         /// <param name="value"></param>
         /// <returns><see langword="true"/> if <paramref name="value"/> is added; otherwise, <see langword="false"/>.</returns>
-        public bool TryAdd(int value)
+        public bool Add(int value)
         {
             if (value < 0)
                 return false;
@@ -58,7 +58,7 @@ namespace FastestCollections
         /// </summary>
         /// <param name="value"></param>
         /// <returns><see langword="true"/> if <paramref name="value"/> is removed; otherwise, <see langword="false"/>.</returns>
-        public bool TryRemove(int value)
+        public bool Remove(int value)
         {
             if (value < 0 || value > BufferSize)
                 return false;
@@ -82,7 +82,7 @@ namespace FastestCollections
         /// </summary>
         /// <param name="value"></param>
         /// <returns><see langword="true"/> if <paramref name="value"/> is found; otherwise, <see langword="false"/>.</returns>
-        public bool TryContains(int value)
+        public bool Contains(int value)
         {
             if (value < 0 || value >= BufferSize)
                 return false;

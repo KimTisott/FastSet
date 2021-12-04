@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using System.Collections.Generic;
 
-namespace FastestCollections.Benchmarks.Numeric
+namespace FastestCollections.Benchmarks
 {
     [BenchmarkCategory(nameof(Add))]
     public class Add : BenchmarkBase
@@ -13,7 +13,7 @@ namespace FastestCollections.Benchmarks.Numeric
 
             for (int i = 0; i < Count; i++)
             {
-                collection.TryAdd(i);
+                collection.Add(i);
             }
         }
 

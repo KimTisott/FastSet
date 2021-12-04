@@ -10,7 +10,7 @@ namespace FastestCollections
 
             foreach(var item in enumerable)
             {
-                nc.TryAdd(item);
+                nc.Add(item);
             }
 
             return nc;
