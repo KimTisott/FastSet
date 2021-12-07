@@ -50,9 +50,3 @@ Intel Core i5-10300H CPU 2.50GHz, 1 CPU, 8 logical and 4 physical cores
 | HashSet |    1000 |     20,124.44 ns |     362.215 ns |       338.816 ns |     58,704 B |
 | Numeric | 1000000 | 10,492,388.62 ns |  73,935.944 ns |    65,542.288 ns |    262,619 B |
 | HashSet | 1000000 | 32,806,357.77 ns | 649,722.689 ns | 1,581,514.822 ns | 43,111,552 B |
-
-## Roadmap
-
-- Int64 support
-- Negative values
-- Thread safety
