@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 
 namespace FastestCollections.Tests
@@ -14,7 +13,7 @@ namespace FastestCollections.Tests
             Assert.True(nc.Add(default));
             Assert.True(nc.Add(int.MaxValue));
             Assert.False(nc.Add(default));
-            Assert.True(nc.Add(long.MaxValue));
+            Assert.False(nc.Add(int.MinValue));
         }
     }
 }
