@@ -1,23 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FastestCollections
+namespace NumericCollection
 {
     public class NumericCollection
     {
-        int[] _data = new int[1];
+        int[] _data;
 
-        int BufferSize => _data.Length * 32;
+        int BufferSize
+            => _data.Length * 32;
+
+        readonly bool _staticData;
 
         int _count;
-        public int Count => _count;
+        public int Count
+            => _count;
 
-        public NumericCollection(){}
-
-        public NumericCollection(IEnumerable<int> values)
+        public NumericCollection(IEnumerable<int> values = null, bool staticData = false)
         {
-            foreach (var value in values)
-                Add(value);
+            _staticData = staticData;
+            _data = new int[_staticData ? int.MaxValue / 32 : 1];
+
+            if (values != null)
+                foreach (var value in values)
+                    Add(value);
         }
 
         /// <summary>
@@ -31,25 +37,23 @@ namespace FastestCollections
                 return false;
 
             var dictionaryIndex = value >> 5;
+            var position = value & 0x1F;
 
-            var position = value % 32;
-
-            var necessarySize = dictionaryIndex + 1;
-
-            if (necessarySize >= _data.Length)
+            if (!_staticData)
             {
-                var doubleSize = _data.Length * 2;
-
-                Array.Resize(ref _data, necessarySize > doubleSize ? necessarySize : doubleSize);
+                var necessarySize = dictionaryIndex + 1;
+                if (necessarySize >= _data.Length)
+                {
+                    var doubleSize = _data.Length * 2;
+                    Array.Resize(ref _data, necessarySize > doubleSize ? necessarySize : doubleSize);
+                }
             }
 
             if (((_data[dictionaryIndex] >> position) & 1) != 0)
                 return false;
 
             _data[dictionaryIndex] |= 1 << position;
-
             _count++;
-
             return true;
         }
 
@@ -64,16 +68,13 @@ namespace FastestCollections
                 return false;
 
             var dictionaryIndex = value >> 5;
-
-            var position = value % 32;
+            var position = value & 0x1F;
 
             if (((_data[dictionaryIndex] >> position) & 1) == 0)
                 return false;
 
             _data[dictionaryIndex] ^= 1 << position;
-
             _count--;
-
             return true;
         }
 
@@ -87,7 +88,7 @@ namespace FastestCollections
             if (value < 0 || value >= BufferSize)
                 return false;
 
-            return ((1 << (value % 32)) & _data[value >> 5]) != 0;
+            return ((1 << (value & 0x1F)) & _data[value >> 5]) != 0;
         }
     }
 }

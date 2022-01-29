@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Running;
 
-namespace FastestCollections.Benchmarks
+namespace NumericCollection.Benchmarks
 {
     class Program
     {
@@ -9,9 +9,9 @@ namespace FastestCollections.Benchmarks
 #if DEBUG
 
 #else
-            BenchmarkRunner.Run<Numeric.Add>();
-            BenchmarkRunner.Run<Numeric.Contains>();
-            BenchmarkRunner.Run<Numeric.Remove>();
+            BenchmarkRunner.Run<Add>();
+            //BenchmarkRunner.Run<Contains>();
+            //BenchmarkRunner.Run<Remove>();
 #endif
         }
     }

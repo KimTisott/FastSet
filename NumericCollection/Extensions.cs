@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 
-namespace FastestCollections
+namespace NumericCollection
 {
-    public static class Fastest
+    public static class Numeric
     {
         public static NumericCollection ToNumericCollection(this IEnumerable<int> enumerable)
         {
             NumericCollection nc = new();
 
-            foreach(var item in enumerable)
+            foreach (var item in enumerable)
             {
                 nc.Add(item);
             }

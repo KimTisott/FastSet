@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FastestCollections.Benchmarks
+namespace NumericCollection.Benchmarks
 {
     [BenchmarkCategory(nameof(Remove))]
     public class Remove : BenchmarkBase
     {
         [Benchmark]
-        public void Fastest()
+        public void Numeric()
         {
             var collection = new NumericCollection(Enumerable.Range(1, Count));
 
-            for (int i = 0; i < Count; i++)
+            for (var i = 0; i < Count; i++)
             {
                 collection.Remove(i);
             }
@@ -23,7 +23,7 @@ namespace FastestCollections.Benchmarks
         {
             var set = new HashSet<int>(Enumerable.Range(1, Count));
 
-            for (int i = 0; i < Count; i++)
+            for (var i = 0; i < Count; i++)
             {
                 set.Remove(i);
             }

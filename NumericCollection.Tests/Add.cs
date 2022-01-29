@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace FastestCollections.Tests
+namespace NumericCollection.Tests
 {
     public class Add
     {
