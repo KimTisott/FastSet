@@ -7,75 +7,82 @@ namespace NumericCollection
     {
         int[] _data;
 
-        int BufferSize
+        int Limit
             => _data.Length * 32;
-
-        readonly bool _staticData;
 
         int _count;
         public int Count
             => _count;
 
-        public NumericCollection(IEnumerable<int> values = null, bool staticData = false)
-        {
-            _staticData = staticData;
-            _data = new int[_staticData ? int.MaxValue / 32 : 1];
+        readonly int? _limit;
 
-            if (values != null)
-                foreach (var value in values)
-                    Add(value);
+        /// <summary>
+        /// Initializes data with the minimum amount of resources.
+        /// </summary>
+        public NumericCollection()
+        {
+            _data = new int[1];
+        }
+
+        /// <summary>
+        /// Initializes data with the required specified <paramref name="limit"/>.
+        /// </summary>
+        public NumericCollection(int limit)
+        {
+            if (limit < 1)
+                throw new ArgumentOutOfRangeException(nameof(limit));
+
+            _data = new int[(limit - 1) / 32 + 1];
+            _limit = limit;
+        }
+
+        /// <summary>
+        /// Loads data with <paramref name="values"/>, according to the optional <paramref name="limit"/>.
+        /// </summary>
+        public NumericCollection(IEnumerable<int> values, int? limit = null)
+        {
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
+
+            if (limit != null)
+            {
+                if (limit < 1)
+                    throw new ArgumentOutOfRangeException(nameof(limit));
+
+                _data = new int[(limit.Value - 1) / 32 + 1];
+                _limit = limit;
+            }
+            else
+            {
+                _data = new int[1];
+            }
+
+            foreach (var value in values)
+                Add(value);
         }
 
         /// <summary>
         /// Adds <paramref name="value"/> to the collection.
         /// </summary>
         /// <param name="value"></param>
-        /// <returns><see langword="true"/> if <paramref name="value"/> is added; otherwise, <see langword="false"/>.</returns>
-        public bool Add(int value)
+        public void Add(int value)
         {
             if (value < 0)
-                return false;
+                throw new ArgumentOutOfRangeException(nameof(value));
 
-            var dictionaryIndex = value >> 5;
-            var position = value & 0x1F;
+            var index = value >> 5;
+            var bit = value & 0x1F;
 
-            if (!_staticData)
-            {
-                var necessarySize = dictionaryIndex + 1;
-                if (necessarySize >= _data.Length)
-                {
-                    var doubleSize = _data.Length * 2;
-                    Array.Resize(ref _data, necessarySize > doubleSize ? necessarySize : doubleSize);
-                }
-            }
+            if (_limit == null)
+                CheckSize(index);
+            else if (_limit.Value < value)
+                throw new ArgumentOutOfRangeException(nameof(value));
 
-            if (((_data[dictionaryIndex] >> position) & 1) != 0)
-                return false;
+            if (((_data[index] >> bit) & 1) != 0)
+                throw new InvalidOperationException($"Value {value} already present.");
 
-            _data[dictionaryIndex] |= 1 << position;
+            _data[index] |= 1 << bit;
             _count++;
-            return true;
-        }
-
-        /// <summary>
-        /// Removes <paramref name="value"/> from the collection.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns><see langword="true"/> if <paramref name="value"/> is removed; otherwise, <see langword="false"/>.</returns>
-        public bool Remove(int value)
-        {
-            if (value < 0 || value > BufferSize)
-                return false;
-
-            var dictionaryIndex = value >> 5;
-            var position = value & 0x1F;
-
-            if (((_data[dictionaryIndex] >> position) & 1) == 0)
-                return false;
-
-            _data[dictionaryIndex] ^= 1 << position;
-            _count--;
-            return true;
         }
 
         /// <summary>
@@ -85,10 +92,39 @@ namespace NumericCollection
         /// <returns><see langword="true"/> if <paramref name="value"/> is found; otherwise, <see langword="false"/>.</returns>
         public bool Contains(int value)
         {
-            if (value < 0 || value >= BufferSize)
+            if (value < 0 || value >= Limit)
                 return false;
 
             return ((1 << (value & 0x1F)) & _data[value >> 5]) != 0;
+        }
+
+        /// <summary>
+        /// Removes <paramref name="value"/> from the collection.
+        /// </summary>
+        /// <param name="value"></param>
+        public void Remove(int value)
+        {
+            if (value < 0 || value > Limit)
+                throw new ArgumentOutOfRangeException(nameof(value));
+
+            var index = value >> 5;
+            var bit = value & 0x1F;
+
+            if (((_data[index] >> bit) & 1) == 0)
+                throw new InvalidOperationException($"Value {value} not present.");
+
+            _data[index] ^= 1 << bit;
+            _count--;
+        }
+
+        void CheckSize(int index)
+        {
+            var size = index + 1;
+            if (size >= _data.Length)
+            {
+                var newSize = _data.Length * 2;
+                Array.Resize(ref _data, size > newSize ? size : newSize);
+            }
         }
     }
 }

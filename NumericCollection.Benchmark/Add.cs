@@ -3,37 +3,55 @@ using System.Collections.Generic;
 
 namespace NumericCollection.Benchmarks
 {
-    [BenchmarkCategory(nameof(Add))]
-    public class Add : BenchmarkBase
+    public class Add : BaseBenchmark
     {
-        [Benchmark]
-        public void Numeric()
+        [ArgumentsSource(nameof(Sizes))]
+        [Benchmark(Description = "Numeric")]
+        [BenchmarkCategory("Dynamic")]
+        public void Numeric_Dynamic(int count)
         {
             var collection = new NumericCollection();
 
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < count; i++)
             {
                 collection.Add(i);
             }
         }
 
-        [Benchmark]
-        public void Numeric_Static()
+        [ArgumentsSource(nameof(Sizes))]
+        [Benchmark(Description = "Numeric")]
+        [BenchmarkCategory("Static")]
+        public void Numeric_Static(int count)
         {
-            var collection = new NumericCollection(staticData: true);
+            var collection = new NumericCollection(limit: count);
 
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < count; i++)
             {
                 collection.Add(i);
             }
         }
 
-        //[Benchmark]
-        public void HashSet()
+        [ArgumentsSource(nameof(Sizes))]
+        [Benchmark(Baseline = true, Description = "HashSet")]
+        [BenchmarkCategory("Dynamic")]
+        public void HashSet_Dynamic(int count)
         {
             var hashSet = new HashSet<int>();
 
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < count; i++)
+            {
+                hashSet.Add(i);
+            }
+        }
+
+        [ArgumentsSource(nameof(Sizes))]
+        [Benchmark(Baseline = true, Description = "HashSet")]
+        [BenchmarkCategory("Static")]
+        public void HashSet_Static(int count)
+        {
+            var hashSet = new HashSet<int>(count);
+
+            for (var i = 0; i < count; i++)
             {
                 hashSet.Add(i);
             }

@@ -10,8 +10,8 @@ namespace NumericCollection.Benchmarks
 
 #else
             BenchmarkRunner.Run<Add>();
-            //BenchmarkRunner.Run<Contains>();
-            //BenchmarkRunner.Run<Remove>();
+            BenchmarkRunner.Run<Contains>();
+            BenchmarkRunner.Run<Remove>();
 #endif
         }
     }

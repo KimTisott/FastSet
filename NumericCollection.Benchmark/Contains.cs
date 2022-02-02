@@ -4,26 +4,27 @@ using System.Linq;
 
 namespace NumericCollection.Benchmarks
 {
-    [BenchmarkCategory(nameof(Contains))]
-    public class Contains : BenchmarkBase
+    public class Contains : BaseBenchmark
     {
-        [Benchmark]
-        public void Numeric()
+        [ArgumentsSource(nameof(Sizes))]
+        [Benchmark(Description = "Numeric")]
+        public void Numeric(int count)
         {
-            var collection = new NumericCollection(Enumerable.Range(1, Count));
+            var collection = new NumericCollection(Enumerable.Range(0, count));
 
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < count; i++)
             {
                 collection.Contains(i);
             }
         }
 
-        [Benchmark]
-        public void HashSet()
+        [ArgumentsSource(nameof(Sizes))]
+        [Benchmark(Baseline = true, Description = "HashSet")]
+        public void HashSet(int count)
         {
-            var set = new HashSet<int>(Enumerable.Range(1, Count));
+            var set = new HashSet<int>(Enumerable.Range(0, count));
 
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < count; i++)
             {
                 set.Contains(i);
             }

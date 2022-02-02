@@ -6,16 +6,27 @@ namespace NumericCollection.Tests
 {
     public class Contains
     {
-        [Fact]
-        public void Unit()
-        {
-            NumericCollection nc = new(Enumerable.Range(default, 3));
+        readonly NumericCollection staticData = new(Enumerable.Range(1, 10));
 
-            Assert.True(nc.Contains(default));
-            Assert.False(nc.Contains(int.MinValue));
-            Assert.False(nc.Contains(int.MaxValue));
-            Assert.False(nc.Contains(3));
-            Assert.True(nc.Contains(2));
+        [Fact]
+        public void Static()
+        {
+            Assert.True(staticData.Contains(5));
+            Assert.False(staticData.Contains(0));
+            Assert.True(staticData.Contains(10));
+        }
+
+        [Fact]
+        public void Dynamic()
+        {
+            NumericCollection dynamicData = new();
+            dynamicData.Add(1);
+            dynamicData.Add(5);
+            dynamicData.Add(10);
+
+            Assert.True(dynamicData.Contains(5));
+            Assert.False(dynamicData.Contains(0));
+            Assert.True(dynamicData.Contains(10));
         }
     }
 }

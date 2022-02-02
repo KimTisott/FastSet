@@ -6,16 +6,29 @@ namespace NumericCollection.Tests
 {
     public class Remove
     {
-        [Fact]
-        public void Unit()
-        {
-            NumericCollection nc = new(Enumerable.Range(default, 3));
+        readonly NumericCollection staticData = new(Enumerable.Range(1, 10));
 
-            Assert.False(nc.Remove(int.MinValue));
-            Assert.False(nc.Remove(int.MaxValue));
-            Assert.True(nc.Remove(default));
-            Assert.False(nc.Remove(default));
-            Assert.True(nc.Remove(2));
+        [Fact]
+        public void Static()
+        {
+            staticData.Remove(5);
+            Assert.Throws<InvalidOperationException>(() => staticData.Remove(0));
+            staticData.Remove(10);
+            Assert.Throws<ArgumentOutOfRangeException>(() => staticData.Remove(-1));
+        }
+
+        [Fact]
+        public void Dynamic()
+        {
+            NumericCollection dynamicData = new();
+            dynamicData.Add(1);
+            dynamicData.Add(5);
+            dynamicData.Add(10);
+
+            dynamicData.Remove(5);
+            Assert.Throws<InvalidOperationException>(() => dynamicData.Remove(0));
+            dynamicData.Remove(10);
+            Assert.Throws<ArgumentOutOfRangeException>(() => staticData.Remove(-1));
         }
     }
 }

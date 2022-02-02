@@ -9,9 +9,7 @@ namespace NumericCollection
             NumericCollection nc = new();
 
             foreach (var item in enumerable)
-            {
                 nc.Add(item);
-            }
 
             return nc;
         }
