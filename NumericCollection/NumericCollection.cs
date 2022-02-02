@@ -7,44 +7,31 @@ namespace NumericCollection
     {
         int[] _data;
 
-        int Limit
-            => _data.Length * 32;
-
         int _count;
         public int Count
             => _count;
 
-        readonly int? _limit;
+        int? _limit;
+        public int? Limit
+            => _limit;
+
+        float _growth;
+        const float DefaultGrowth = 2;
 
         /// <summary>
-        /// Initializes data with the minimum amount of resources.
+        /// Initializes data with the optional <paramref name="limit"/>.
         /// </summary>
-        public NumericCollection()
+        public NumericCollection(int? limit = null, float growth = DefaultGrowth)
         {
-            _data = new int[1];
-        }
+            if (growth < 0)
+                throw new ArgumentOutOfRangeException(nameof(growth));
 
-        /// <summary>
-        /// Initializes data with the required specified <paramref name="limit"/>.
-        /// </summary>
-        public NumericCollection(int limit)
-        {
-            if (limit < 1)
-                throw new ArgumentOutOfRangeException(nameof(limit));
-
-            _data = new int[(limit - 1) / 32 + 1];
-            _limit = limit;
-        }
-
-        /// <summary>
-        /// Loads data with <paramref name="values"/>, according to the optional <paramref name="limit"/>.
-        /// </summary>
-        public NumericCollection(IEnumerable<int> values, int? limit = null)
-        {
-            if (values == null)
-                throw new ArgumentNullException(nameof(values));
-
-            if (limit != null)
+            if (limit == null)
+            {
+                _data = new int[1];
+                _limit = 32;
+            }
+            else
             {
                 if (limit < 1)
                     throw new ArgumentOutOfRangeException(nameof(limit));
@@ -52,13 +39,23 @@ namespace NumericCollection
                 _data = new int[(limit.Value - 1) / 32 + 1];
                 _limit = limit;
             }
-            else
-            {
-                _data = new int[1];
-            }
+
+            _growth = growth;
+        }
+
+        /// <summary>
+        /// Loads data with <paramref name="values"/> and the optional <paramref name="limit"/>.
+        /// </summary>
+        public NumericCollection(IEnumerable<int> values, int? limit = null, float growth = DefaultGrowth)
+            : this(limit, growth)
+        {
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
 
             foreach (var value in values)
                 Add(value);
+
+            _limit = _data.Length * 32;
         }
 
         /// <summary>
@@ -92,7 +89,7 @@ namespace NumericCollection
         /// <returns><see langword="true"/> if <paramref name="value"/> is found; otherwise, <see langword="false"/>.</returns>
         public bool Contains(int value)
         {
-            if (value < 0 || value >= Limit)
+            if (value < 0 || value >= _limit)
                 return false;
 
             return ((1 << (value & 0x1F)) & _data[value >> 5]) != 0;
@@ -104,7 +101,7 @@ namespace NumericCollection
         /// <param name="value"></param>
         public void Remove(int value)
         {
-            if (value < 0 || value > Limit)
+            if (value < 0 || value > _limit)
                 throw new ArgumentOutOfRangeException(nameof(value));
 
             var index = value >> 5;
@@ -119,10 +116,10 @@ namespace NumericCollection
 
         void CheckSize(int index)
         {
-            var size = index + 1;
+            var size = index++;
             if (size >= _data.Length)
             {
-                var newSize = _data.Length * 2;
+                var newSize = (int)Math.Ceiling(_data.Length * _growth);
                 Array.Resize(ref _data, size > newSize ? size : newSize);
             }
         }
