@@ -24,46 +24,55 @@ Intel Core i5-10300H CPU 2.50GHz, 1 CPU, 8 logical and 4 physical cores
 |-------- |----------- |---------- |--------------------:|------:|----------------:|
 | Numeric |    Dynamic |         1 |            19.88 ns |  0.77 |           104 B |
 | HashSet |    Dynamic |         1 |            25.69 ns |  1.00 |           168 B |
+|         |            |           |                     |       |                 |
 | Numeric |     Static |         1 |            11.68 ns |  0.43 |            72 B |
 | HashSet |     Static |         1 |            27.08 ns |  1.00 |           168 B |
 |         |            |           |                     |       |                 |
 | Numeric |    Dynamic |        10 |            63.98 ns |  0.42 |           104 B |
 | HashSet |    Dynamic |        10 |           151.87 ns |  1.00 |           664 B |
+|         |            |           |                     |       |                 |
 | Numeric |     Static |        10 |            48.28 ns |  0.63 |            72 B |
 | HashSet |     Static |        10 |            75.80 ns |  1.00 |           296 B |
 |         |            |           |                     |       |                 |
 | Numeric |    Dynamic |       100 |           551.07 ns |  0.40 |           200 B |
 | HashSet |    Dynamic |       100 |         1,401.92 ns |  1.00 |         6,000 B |
+|         |            |           |                     |       |                 |
 | Numeric |     Static |       100 |           419.73 ns |  0.67 |            80 B |
 | HashSet |     Static |       100 |           623.45 ns |  1.00 |         1,832 B |
 |         |            |           |                     |       |                 |
 | Numeric |    Dynamic |      1000 |         5,350.13 ns |  0.47 |           720 B |
 | HashSet |    Dynamic |      1000 |        11,374.66 ns |  1.00 |        58,664 B |
+|         |            |           |                     |       |                 |
 | Numeric |     Static |      1000 |         4,454.10 ns |  0.74 |           192 B |
 | HashSet |     Static |      1000 |         6,077.24 ns |  1.00 |        17,768 B |
 |         |            |           |                     |       |                 |
 | Numeric |    Dynamic |     10000 |        51,293.65 ns |  0.32 |         4,376 B |
 | HashSet |    Dynamic |     10000 |       162,783.45 ns |  1.00 |       538,656 B |
+|         |            |           |                     |       |                 |
 | Numeric |     Static |     10000 |        41,205.81 ns |  0.48 |         1,320 B |
 | HashSet |     Static |     10000 |        85,595.52 ns |  1.00 |       161,781 B |
 |         |            |           |                     |       |                 |
 | Numeric |    Dynamic |    100000 |       502,688.48 ns |  0.29 |        33,120 B |
 | HashSet |    Dynamic |    100000 |     1,816,042.42 ns |  1.00 |     4,830,622 B |
+|         |            |           |                     |       |                 |
 | Numeric |     Static |    100000 |       413,868.78 ns |  0.43 |        12,568 B |
 | HashSet |     Static |    100000 |       968,118.55 ns |  1.00 |     1,738,384 B |
 |         |            |           |                     |       |                 |
 | Numeric |    Dynamic |   1000000 |     5,044,563.83 ns |  0.23 |       262,585 B |
 | HashSet |    Dynamic |   1000000 |    21,921,108.12 ns |  1.00 |    43,111,496 B |
+|         |            |           |                     |       |                 |
 | Numeric |     Static |   1000000 |     4,129,712.50 ns |  0.46 |       125,078 B |
 | HashSet |     Static |   1000000 |     8,925,010.94 ns |  1.00 |    18,603,236 B |
 |         |            |           |                     |       |                 |
 | Numeric |    Dynamic |  10000000 |    50,925,816.00 ns |  0.33 |     4,195,174 B |
 | HashSet |    Dynamic |  10000000 |   156,288,170.00 ns |  1.00 |   377,378,604 B |
+|         |            |           |                     |       |                 |
 | Numeric |     Static |  10000000 |    40,590,115.38 ns |  0.47 |     1,250,204 B |
 | HashSet |     Static |  10000000 |    85,758,076.67 ns |  1.00 |   160,003,424 B |
 |         |            |           |                     |       |                 |
 | Numeric |    Dynamic | 100000000 |   504,835,275.00 ns |  0.24 |    33,556,152 B |
 | HashSet |    Dynamic | 100000000 | 2,070,539,175.00 ns |  1.00 | 6,136,884,000 B |
+|         |            |           |                     |       |                 |
 | Numeric |     Static | 100000000 |   404,231,380.00 ns |  0.51 |    12,500,856 B |
 | HashSet |     Static | 100000000 |   791,634,160.00 ns |  1.00 | 1,600,001,048 B |
 
