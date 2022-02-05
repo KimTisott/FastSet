@@ -19,12 +19,12 @@ namespace NumericCollection.Tests
         [Fact]
         public void Max()
         {
-            var nc = new NumericCollection(int.MaxValue - 1);
+            var nc = new NumericCollection(1000);
 
-            foreach (var number in Enumerable.Range(0, int.MaxValue))
+            foreach (var number in Enumerable.Range(0, 1000))
                 nc.Add(number);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => nc.Add(int.MaxValue));
+            Assert.Throws<ArgumentOutOfRangeException>(() => nc.Add(1001));
         }
     }
 }

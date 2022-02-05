@@ -10,18 +10,13 @@ namespace NumericCollection.Benchmarks
     [StopOnFirstError(false)]
     public class BaseBenchmark
     {
-        public IEnumerable<object> Sizes()
+        public static IEnumerable<object> Sizes()
         {
             yield return 1;
-            yield return 10;
             yield return 100;
-            yield return 1_000;
             yield return 10_000;
-            yield return 100_000;
             yield return 1_000_000;
-            yield return 10_000_000;
             yield return 100_000_000;
-            //yield return 1000000000;
         }
     }
 }

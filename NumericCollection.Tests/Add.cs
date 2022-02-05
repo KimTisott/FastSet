@@ -8,7 +8,7 @@ namespace NumericCollection.Tests
         [Fact]
         public void Negative()
         {
-            NumericCollection nc = new(int.MaxValue);
+            NumericCollection nc = new();
 
             Assert.Throws<ArgumentOutOfRangeException>(() => nc.Add(-1));
             Assert.Throws<ArgumentOutOfRangeException>(() => nc.Add(int.MinValue));
@@ -17,7 +17,7 @@ namespace NumericCollection.Tests
         [Fact]
         public void Duplicate()
         {
-            NumericCollection nc = new(int.MaxValue);
+            NumericCollection nc = new();
 
             nc.Add(1);
             Assert.Throws<InvalidOperationException>(() => nc.Add(1));

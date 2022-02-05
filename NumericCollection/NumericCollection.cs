@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace NumericCollection
 {
-    public class NumericCollection
+    public class NumericCollection : IEnumerable<bool>
     {
         int[] _data;
 
@@ -15,6 +16,7 @@ namespace NumericCollection
         public int? Limit
             => _limit;
 
+        int _length;
         float _growth;
         const float DefaultGrowth = 2;
 
@@ -28,18 +30,18 @@ namespace NumericCollection
 
             if (limit == null)
             {
-                _data = new int[1];
-                _limit = 32;
+                _length = 1;
             }
             else
             {
                 if (limit < 1)
                     throw new ArgumentOutOfRangeException(nameof(limit));
 
-                _data = new int[(limit.Value - 1) / 32 + 1];
-                _limit = limit;
+                _length = (limit.Value - 1) / 32 + 1;
             }
 
+            _data = new int[_length];
+            _limit = limit;
             _growth = growth;
         }
 
@@ -54,8 +56,6 @@ namespace NumericCollection
 
             foreach (var value in values)
                 Add(value);
-
-            _limit = _data.Length * 32;
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace NumericCollection
             if (value < 0 || value >= _limit)
                 return false;
 
-            return ((1 << (value & 0x1F)) & _data[value >> 5]) != 0;
+            return ((1 << value) & _data[value >> 5]) != 0;
         }
 
         /// <summary>
@@ -117,11 +117,25 @@ namespace NumericCollection
         void CheckSize(int index)
         {
             var size = index++;
-            if (size >= _data.Length)
+            if (size >= _length)
             {
-                var newSize = (int)Math.Ceiling(_data.Length * _growth);
-                Array.Resize(ref _data, size > newSize ? size : newSize);
+                var calcSize = (int)Math.Ceiling(_length * _growth);
+                var newSize = size > calcSize ? size : calcSize;
+                Array.Resize(ref _data, newSize);
+                _length = newSize;
             }
         }
+
+        public bool this[int index]
+            => Contains(index);
+
+        public IEnumerator<bool> GetEnumerator()
+        {
+            for (var i = 0; i < Count; i++)
+                yield return this[i];
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+            => GetEnumerator();
     }
 }
