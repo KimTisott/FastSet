@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using System.Collections.Generic;
 
-namespace NumericCollection.Benchmarks
+namespace FastNumber.Benchmarks
 {
     public class Add : BaseBenchmark
     {
@@ -10,7 +10,7 @@ namespace NumericCollection.Benchmarks
         [BenchmarkCategory("Dynamic")]
         public void Numeric_Dynamic(int count)
         {
-            var collection = new NumericCollection();
+            var collection = new FastNumbers();
 
             for (var i = 0; i < count; i++)
             {
@@ -23,7 +23,7 @@ namespace NumericCollection.Benchmarks
         [BenchmarkCategory("Static")]
         public void Numeric_Static(int count)
         {
-            var collection = new NumericCollection(limit: count);
+            var collection = new FastNumbers(limit: count);
 
             for (var i = 0; i < count; i++)
             {

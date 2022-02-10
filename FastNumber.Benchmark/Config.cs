@@ -3,7 +3,7 @@ using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Exporters;
 
-namespace NumericCollection.Benchmarks
+namespace FastNumber.Benchmarks
 {
     internal class Config : ManualConfig
     {

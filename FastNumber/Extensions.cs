@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace NumericCollection
+namespace FastNumber
 {
     public static class Numeric
     {
-        public static NumericCollection ToNumericCollection(this IEnumerable<int> enumerable)
+        public static FastNumbers ToFastNumbers(this IEnumerable<int> enumerable)
         {
-            NumericCollection nc = new();
+            FastNumbers nc = new();
 
             foreach (var item in enumerable)
                 nc.Add(item);

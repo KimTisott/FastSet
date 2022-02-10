@@ -2,14 +2,14 @@
 using System.Linq;
 using Xunit;
 
-namespace NumericCollection.Tests
+namespace FastNumber.Tests
 {
     public class Limit
     {
         [Fact]
         public void Min()
         {
-            var nc = new NumericCollection(1);
+            var nc = new FastNumbers(1);
 
             nc.Add(1);
 
@@ -19,7 +19,7 @@ namespace NumericCollection.Tests
         [Fact]
         public void Max()
         {
-            var nc = new NumericCollection(1000);
+            var nc = new FastNumbers(1000);
 
             foreach (var number in Enumerable.Range(0, 1000))
                 nc.Add(number);

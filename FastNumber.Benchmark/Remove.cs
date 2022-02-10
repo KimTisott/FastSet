@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NumericCollection.Benchmarks
+namespace FastNumber.Benchmarks
 {
     public class Remove : BaseBenchmark
     {
@@ -10,7 +10,7 @@ namespace NumericCollection.Benchmarks
         [Benchmark(Description = "Numeric")]
         public void Numeric(int count)
         {
-            var collection = new NumericCollection(Enumerable.Range(0, count));
+            var collection = new FastNumbers(Enumerable.Range(0, count));
 
             for (var i = 0; i < count; i++)
             {

@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NumericCollection.Benchmarks", "NumericCollection.Benchmark\NumericCollection.Benchmarks.csproj", "{14B6C5AF-46F3-44AA-8919-AF5B4164B331}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastNumber.Benchmarks", "FastNumber.Benchmark\FastNumber.Benchmarks.csproj", "{14B6C5AF-46F3-44AA-8919-AF5B4164B331}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NumericCollection", "NumericCollection\NumericCollection.csproj", "{7D43B39F-EDBF-4214-A658-AC4880926B20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastNumber", "FastNumber\FastNumber.csproj", "{7D43B39F-EDBF-4214-A658-AC4880926B20}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NumericCollection.Tests", "NumericCollection.Tests\NumericCollection.Tests.csproj", "{C52800C8-4014-4BB8-A83C-D11CB569C34A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastNumber.Tests", "FastNumber.Tests\FastNumber.Tests.csproj", "{C52800C8-4014-4BB8-A83C-D11CB569C34A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

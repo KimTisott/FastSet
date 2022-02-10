@@ -1,4 +1,4 @@
-# NumericCollection
+# FastNumbers
 
 Fastest implementation of a .NET number collection.
 

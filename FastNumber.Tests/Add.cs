@@ -1,14 +1,14 @@
 using System;
 using Xunit;
 
-namespace NumericCollection.Tests
+namespace FastNumber.Tests
 {
     public class Add
     {
         [Fact]
         public void Negative()
         {
-            NumericCollection nc = new();
+            FastNumbers nc = new();
 
             Assert.Throws<ArgumentOutOfRangeException>(() => nc.Add(-1));
             Assert.Throws<ArgumentOutOfRangeException>(() => nc.Add(int.MinValue));
@@ -17,7 +17,7 @@ namespace NumericCollection.Tests
         [Fact]
         public void Duplicate()
         {
-            NumericCollection nc = new();
+            FastNumbers nc = new();
 
             nc.Add(1);
             Assert.Throws<InvalidOperationException>(() => nc.Add(1));

@@ -2,14 +2,14 @@
 using System.Linq;
 using Xunit;
 
-namespace NumericCollection.Tests
+namespace FastNumber.Tests
 {
     public class Contains
     {
         [Fact]
         public void Static()
         {
-            NumericCollection nc = new(Enumerable.Range(1, 10));
+            FastNumbers nc = new(Enumerable.Range(1, 10));
 
             Assert.True(nc.Contains(5));
             Assert.False(nc.Contains(0));
@@ -19,7 +19,7 @@ namespace NumericCollection.Tests
         [Fact]
         public void Dynamic()
         {
-            NumericCollection nc = new();
+            FastNumbers nc = new();
 
             nc.Add(1);
             nc.Add(5);

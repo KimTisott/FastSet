@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Running;
 
-namespace NumericCollection.Benchmarks
+namespace FastNumber.Benchmarks
 {
     class Program
     {

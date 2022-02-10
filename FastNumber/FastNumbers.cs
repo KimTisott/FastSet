@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace NumericCollection
+namespace FastNumber
 {
-    public class NumericCollection : IEnumerable<int>
+    public class FastNumbers : IEnumerable<int>
     {
         int[] _data;
 
@@ -20,7 +20,7 @@ namespace NumericCollection
         float _growth;
         const float DefaultGrowth = 2;
 
-        public NumericCollection(int? limit = null, float growth = DefaultGrowth)
+        public FastNumbers(int? limit = null, float growth = DefaultGrowth)
         {
             if (growth < 0)
                 throw new ArgumentOutOfRangeException(nameof(growth));
@@ -42,7 +42,7 @@ namespace NumericCollection
             _growth = growth;
         }
 
-        public NumericCollection(IEnumerable<int> values, int? limit = null, float growth = DefaultGrowth)
+        public FastNumbers(IEnumerable<int> values, int? limit = null, float growth = DefaultGrowth)
             : this(limit, growth)
         {
             if (values == null)

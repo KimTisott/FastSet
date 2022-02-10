@@ -2,7 +2,7 @@
 using BenchmarkDotNet.Configs;
 using System.Collections.Generic;
 
-namespace NumericCollection.Benchmarks
+namespace FastNumber.Benchmarks
 {
     [Config(typeof(Config))]
     [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
