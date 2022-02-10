@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace NumericCollection
 {
-    public class NumericCollection : IEnumerable<bool>
+    public class NumericCollection : IEnumerable<int>
     {
         int[] _data;
 
@@ -20,9 +20,6 @@ namespace NumericCollection
         float _growth;
         const float DefaultGrowth = 2;
 
-        /// <summary>
-        /// Initializes data with the optional <paramref name="limit"/>.
-        /// </summary>
         public NumericCollection(int? limit = null, float growth = DefaultGrowth)
         {
             if (growth < 0)
@@ -45,9 +42,6 @@ namespace NumericCollection
             _growth = growth;
         }
 
-        /// <summary>
-        /// Loads data with <paramref name="values"/> and the optional <paramref name="limit"/>.
-        /// </summary>
         public NumericCollection(IEnumerable<int> values, int? limit = null, float growth = DefaultGrowth)
             : this(limit, growth)
         {
@@ -129,10 +123,11 @@ namespace NumericCollection
         public bool this[int index]
             => Contains(index);
 
-        public IEnumerator<bool> GetEnumerator()
+        public IEnumerator<int> GetEnumerator()
         {
             for (var i = 0; i < Count; i++)
-                yield return this[i];
+                if (Contains(i))
+                    yield return i;
         }
 
         IEnumerator IEnumerable.GetEnumerator()

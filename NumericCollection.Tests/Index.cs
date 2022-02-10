@@ -22,8 +22,9 @@ namespace NumericCollection.Tests
         {
             NumericCollection nc = new(Enumerable.Range(0, 1000));
 
+            var count = 0;
             foreach (var item in nc)
-                Assert.True(item);
+                Assert.Equal(count++, item);
             Assert.False(nc[1000]);
         }
     }
