@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Xunit;
 
 namespace FastSet.Tests;
@@ -9,26 +8,25 @@ public class Remove
     [Fact]
     public void Static()
     {
-        FastSet nc = new(Enumerable.Range(1, 10));
+        FastSet test = new(Enumerable.Range(1, 10));
 
-        nc.Remove(5);
-        Assert.Throws<InvalidOperationException>(() => nc.Remove(0));
-        nc.Remove(10);
-        Assert.Throws<ArgumentOutOfRangeException>(() => nc.Remove(-1));
+        Assert.True(test.TryRemove(5));
+        Assert.False(test.TryRemove(0));
+        Assert.True(test.TryRemove(10));
+        Assert.False(test.TryRemove(-1));
     }
 
     [Fact]
     public void Dynamic()
     {
-        FastSet nc = new();
+        FastSet test = new();
 
-        nc.Add(1);
-        nc.Add(5);
-        nc.Add(10);
-
-        nc.Remove(5);
-        Assert.Throws<InvalidOperationException>(() => nc.Remove(0));
-        nc.Remove(10);
-        Assert.Throws<ArgumentOutOfRangeException>(() => nc.Remove(-1));
+        Assert.True(test.TryAdd(1));
+        Assert.True(test.TryAdd(5));
+        Assert.True(test.TryAdd(10));
+        Assert.True(test.TryRemove(5));
+        Assert.False(test.TryRemove(0));
+        Assert.True(test.TryRemove(10));
+        Assert.False(test.TryRemove(-1));
     }
 }

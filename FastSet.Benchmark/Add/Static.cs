@@ -10,7 +10,7 @@ public class Static : BaseBenchmark
     {
         var test = new FastSet(limit: Iterations);
         for (var i = 0; i < Iterations; i++)
-            test.Add(i);
+            test.TryAdd(i);
     }
 
     [Benchmark(Baseline = true)]

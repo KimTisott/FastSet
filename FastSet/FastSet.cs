@@ -47,51 +47,70 @@ public class FastSet : IEnumerable<int>
             throw new ArgumentNullException(nameof(values));
 
         foreach (var value in values)
-            Add(value);
+            TryAdd(value);
     }
 
-    public void Add(int value)
+    /// <summary>
+    /// Adds an element to the current set and returns a value to indicate if the element was successfully added.
+    /// </summary>
+    /// <param name="item">The element to add to the set.</param>
+    /// <returns><see langword="true"/> if the element is added in the set; <see langword="false"/> if the element is already in the set.</returns>
+    public bool TryAdd(int item)
     {
-        if (value < 0)
-            throw new ArgumentOutOfRangeException(nameof(value));
+        if (item < 0)
+            return false;
 
-        var index = value >> 5;
+        var index = item >> 5;
 
         if (_limit == null)
             CheckSize(index);
-        else if (_limit.Value < value)
-            throw new ArgumentOutOfRangeException(nameof(value));
+        else if (_limit.Value < item)
+            return false;
 
-        var bit = value & 0x1F;
+        var bit = item & 0x1F;
 
         if (((_data[index] >> bit) & 1) != 0)
-            throw new InvalidOperationException($"Value {value} already present.");
+            return false;
 
         _data[index] |= 1 << bit;
         _count++;
+
+        return true;
     }
 
-    public bool Contains(int value)
+    /// <summary>
+    /// Determines whether the <see cref="FastSet"/> contains a specific value.
+    /// </summary>
+    /// <param name="item">The object to locate in the <see cref="FastSet"/>.</param>
+    /// <returns><see langword="true"/> if <paramref name="item"/> is found in the <see cref="FastSet"/>; otherwise, <see langword="false"/>.</returns>
+    public bool Contains(int item)
     {
-        if (value < 0 || value >= _limit)
+        if (item < 0 || item >= _limit)
             return false;
 
-        return ((1 << value) & _data[value >> 5]) != 0;
+        return ((1 << item) & _data[item >> 5]) != 0;
     }
 
-    public void Remove(int value)
+    /// <summary>
+    /// Removes the first occurrence of a specific object from the <see cref="FastSet"/>.
+    /// </summary>
+    /// <param name="item">The object to remove from the <see cref="FastSet"/>.</param>
+    /// <returns><see langword="true"/> if <param name="item"> was successfully removed from the <see cref="FastSet"/>; otherwise, <see langword="false"/>. This method also returns <see langword="false"/> if <param name="item"> is not found in the original <see cref="FastSet"/>.</returns>
+    public bool TryRemove(int item)
     {
-        if (value < 0 || value > _limit)
-            throw new ArgumentOutOfRangeException(nameof(value));
+        if (item < 0 || item > _limit)
+            return false;
 
-        var index = value >> 5;
-        var bit = value & 0x1F;
+        var index = item >> 5;
+        var bit = item & 0x1F;
 
         if (((_data[index] >> bit) & 1) == 0)
-            throw new InvalidOperationException($"Value {value} not present.");
+            return false;
 
         _data[index] ^= 1 << bit;
         _count--;
+
+        return true;
     }
 
     void CheckSize(int index)

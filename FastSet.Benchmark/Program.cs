@@ -10,9 +10,9 @@ class Program
 
 #else
         BenchmarkRunner.Run<Add.Dynamic>();
-        //BenchmarkRunner.Run<Add.Static>();
-        //BenchmarkRunner.Run<Contains>();
-        //BenchmarkRunner.Run<Remove>();
+        BenchmarkRunner.Run<Add.Static>();
+        BenchmarkRunner.Run<Contains>();
+        BenchmarkRunner.Run<Remove>();
 #endif
     }
 }

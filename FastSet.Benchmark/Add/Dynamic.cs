@@ -10,7 +10,7 @@ public class Dynamic : BaseBenchmark
     {
         var test = new FastSet(growth: Growth);
         for (var i = 0; i < Iterations; i++)
-            test.Add(i);
+            test.TryAdd(i);
     }
 
     [Benchmark(Baseline = true)]

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Xunit;
 
 namespace FastSet.Tests;
@@ -9,21 +8,19 @@ public class Limit
     [Fact]
     public void Min()
     {
-        var nc = new FastSet(1);
+        var test = new FastSet(1);
 
-        nc.Add(1);
-
-        Assert.Throws<ArgumentOutOfRangeException>(() => nc.Add(2));
+        Assert.True(test.TryAdd(1));
+        Assert.False(test.TryAdd(2));
     }
 
     [Fact]
     public void Max()
     {
-        var nc = new FastSet(1000);
+        var test = new FastSet(1000);
 
         foreach (var number in Enumerable.Range(0, 1000))
-            nc.Add(number);
-
-        Assert.Throws<ArgumentOutOfRangeException>(() => nc.Add(1001));
+            Assert.True(test.TryAdd(number));
+        Assert.False(test.TryAdd(1001));
     }
 }

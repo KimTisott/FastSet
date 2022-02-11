@@ -21,9 +21,9 @@ public class Contains
     {
         FastSet nc = new();
 
-        nc.Add(1);
-        nc.Add(5);
-        nc.Add(10);
+        nc.TryAdd(1);
+        nc.TryAdd(5);
+        nc.TryAdd(10);
 
         Assert.True(nc.Contains(5));
         Assert.False(nc.Contains(0));

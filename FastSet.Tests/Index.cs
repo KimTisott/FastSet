@@ -8,23 +8,23 @@ public class Index
     [Fact]
     public void Explicit()
     {
-        FastSet nc = new(Enumerable.Range(5, 10));
+        FastSet test = new(Enumerable.Range(5, 10));
 
-        Assert.False(nc[0]);
-        Assert.False(nc[4]);
-        Assert.True(nc[5]);
-        Assert.True(nc[7]);
-        Assert.True(nc[10]);
+        Assert.False(test[0]);
+        Assert.False(test[4]);
+        Assert.True(test[5]);
+        Assert.True(test[7]);
+        Assert.True(test[10]);
     }
 
     [Fact]
     public void Enumeration()
     {
-        FastSet nc = new(Enumerable.Range(0, 1000));
+        FastSet test = new(Enumerable.Range(0, 1000));
 
         var count = 0;
-        foreach (var item in nc)
+        foreach (var item in test)
             Assert.Equal(count++, item);
-        Assert.False(nc[1000]);
+        Assert.False(test[1000]);
     }
 }

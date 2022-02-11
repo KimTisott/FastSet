@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 
 namespace FastSet.Tests;
@@ -8,18 +7,18 @@ public class Add
     [Fact]
     public void Negative()
     {
-        FastSet nc = new();
+        FastSet test = new();
 
-        Assert.Throws<ArgumentOutOfRangeException>(() => nc.Add(-1));
-        Assert.Throws<ArgumentOutOfRangeException>(() => nc.Add(int.MinValue));
+        Assert.False(test.TryAdd(-1));
+        Assert.False(test.TryAdd(int.MinValue));
     }
 
     [Fact]
     public void Duplicate()
     {
-        FastSet nc = new();
+        FastSet test = new();
 
-        nc.Add(1);
-        Assert.Throws<InvalidOperationException>(() => nc.Add(1));
+        Assert.True(test.TryAdd(1));
+        Assert.False(test.TryAdd(1));
     }
 }

@@ -11,7 +11,7 @@ public class Remove : BaseBenchmark
     {
         var test = new FastSet(Enumerable.Range(0, Iterations));
         for (var i = 0; i < Iterations; i++)
-            test.Remove(i);
+            test.TryRemove(i);
     }
 
     [Benchmark(Baseline = true)]

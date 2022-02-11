@@ -13,7 +13,7 @@ public static class Numeric
         FastSet nc = new();
 
         foreach (var item in enumerable)
-            nc.Add(item);
+            nc.TryAdd(item);
 
         return nc;
     }
