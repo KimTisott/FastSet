@@ -26,6 +26,8 @@ IterationCount=5  LaunchCount=1  WarmupCount=5
 
 #### Custom Factors
 
+Not supported by HashSet.
+
 |  Method | Growth | Load | Iterations |              Mean |    Allocated |
 |-------- |------- |----- |----------- |------------------:|-------------:|
 | FastSet |      2 |  0.5 |          1 |          18.12 ns |         80 B |
@@ -84,6 +86,10 @@ IterationCount=5  LaunchCount=1  WarmupCount=5
 
 #### Default Factors
 
+HashSet defaults:
+- Growth = 2;
+- Load = 0.75.
+
 |  Method | Iterations |                Mean | Ratio |       Allocated |
 |-------- |----------- |--------------------:|------:|----------------:|
 | FastSet |          1 |            18.24 ns |  0.67 |            80 B |
@@ -102,6 +108,8 @@ IterationCount=5  LaunchCount=1  WarmupCount=5
 | HashSet |  100000000 | 2,113,297,500.00 ns |  1.00 | 6,136,884,336 B |
 
 ### Static
+
+Capacity = Iterations.
 
 |  Method | Iterations |              Mean | Ratio |       Allocated |
 |-------- |----------- |------------------:|------:|----------------:|
@@ -122,6 +130,8 @@ IterationCount=5  LaunchCount=1  WarmupCount=5
 
 ## Contains
 
+Data = `Enumerable.Range(0, Iterations)`.
+
 |  Method | Iterations |                Mean | Ratio |       Allocated |
 |-------- |----------- |--------------------:|------:|----------------:|
 | FastSet |          1 |            34.62 ns |  0.60 |           120 B |
@@ -140,6 +150,8 @@ IterationCount=5  LaunchCount=1  WarmupCount=5
 | HashSet |  100000000 | 2,735,724,800.00 ns |  1.00 | 6,136,884,664 B |
 
 ## Remove
+
+Data = `Enumerable.Range(0, Iterations)`.
 
 |  Method | Iterations |                Mean | Ratio |       Allocated |
 |-------- |----------- |--------------------:|------:|----------------:|
