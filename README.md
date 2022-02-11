@@ -2,7 +2,8 @@
 
 Fastest and lowest allocation set operations. [Beats the .NET HashSet in style](./FastSet.Benchmark).
 
-All of the [.NET integral numeric types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types) are based on whole number storage. This means that 32 bits are required to store an `int`, 64 bits for a `long`, and 8 for a `byte`. So when working with the [.NET HashSet](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.hashset-1?view=net-6.0), the space required is calculated by taking the size of the data type and multiplying it by the amount of data. There are three issues with this implementation:
+All of the [.NET integral numeric types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types) are based on whole number storage. This means that 32 bits are required to store an `int`, 64 bits for a `long`, and 8 for a `byte`. So when working with the [.NET HashSet](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.hashset-1?view=net-6.0), the space required is calculated by taking the size of the data type and multiplying it by the amount of data. 
+There are three issues with this implementation, and how `FastSet` overcame them:
 
 1. Large storage space
 
