@@ -17,10 +17,14 @@ public class FastSet : IEnumerable<int>
         => _limit;
 
     int _length;
-    readonly float _growth;
-    const float DefaultGrowth = 2;
 
-    public FastSet(int? limit = null, float growth = DefaultGrowth)
+    readonly float _growth;
+    const float DefGrowth = 2;
+
+    readonly float _load;
+    const float DefLoad = 0.75f;
+
+    public FastSet(int? limit = null, float growth = DefGrowth, float load = DefLoad)
     {
         if (growth < 0)
             throw new ArgumentOutOfRangeException(nameof(growth));
@@ -38,9 +42,10 @@ public class FastSet : IEnumerable<int>
         _data = new int[_length];
         _limit = limit;
         _growth = growth;
+        _load = load;
     }
 
-    public FastSet(IEnumerable<int> values, int? limit = null, float growth = DefaultGrowth)
+    public FastSet(IEnumerable<int> values, int? limit = null, float growth = DefGrowth)
         : this(limit, growth)
     {
         if (values == null)
@@ -116,7 +121,7 @@ public class FastSet : IEnumerable<int>
     void CheckSize(int index)
     {
         var size = index++;
-        if (size >= _length)
+        if (size >= _length * _load)
         {
             var calcSize = (int)Math.Ceiling(_length * _growth);
             var newSize = size > calcSize ? size : calcSize;

@@ -9,10 +9,11 @@ class Program
 #if DEBUG
 
 #else
-        BenchmarkRunner.Run<Add.Dynamic>();
-        BenchmarkRunner.Run<Add.Static>();
-        BenchmarkRunner.Run<Contains>();
-        BenchmarkRunner.Run<Remove>();
+        BenchmarkRunner.Run<Add.Dynamic.CustomFactors>();
+        BenchmarkRunner.Run<Add.Dynamic.DefaultFactors>();
+        //BenchmarkRunner.Run<Add.Static>();
+        //BenchmarkRunner.Run<Contains>();
+        //BenchmarkRunner.Run<Remove>();
 #endif
     }
 }

@@ -9,6 +9,7 @@ internal class Config : ManualConfig
 {
     public Config()
     {
+        ArtifactsPath = "../../../Reports";
         AddColumn(CategoriesColumn.Default);
         AddColumn(BaselineRatioColumn.RatioMean);
         AddDiagnoser(new MemoryDiagnoser(new(false)));
