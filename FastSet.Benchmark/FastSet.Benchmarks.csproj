@@ -21,4 +21,8 @@
     <ProjectReference Include="..\FastSet\FastSet.csproj" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="RD /S /Q &quot;$(ProjectDir)Reports\&quot;" />
+  </Target>
+
 </Project>

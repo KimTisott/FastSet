@@ -1,23 +1,24 @@
 ﻿using BenchmarkDotNet.Attributes;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FastSet.Benchmarks.Add;
 
-public class Static : BaseBenchmark
+public class Static : Base
 {
     [Benchmark]
     public void FastSet()
     {
-        var test = new FastSet(limit: Iterations);
-        for (var i = 0; i < Iterations; i++)
-            test.TryAdd(i);
+        //var test = new FastSet(limit: RandomValues.Count());
+        //foreach (var item in RandomValues)
+        //    test.TryAdd(item);
     }
 
     [Benchmark(Baseline = true)]
     public void HashSet()
     {
-        var test = new HashSet<int>(Iterations);
-        for (var i = 0; i < Iterations; i++)
-            test.Add(i);
+        //var test = new HashSet<int>(RandomValues.Count());
+        //foreach (var item in RandomValues)
+        //    test.Add(item);
     }
 }

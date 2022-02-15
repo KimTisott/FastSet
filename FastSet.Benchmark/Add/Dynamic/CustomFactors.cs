@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace FastSet.Benchmarks.Add.Dynamic;
 
-public class CustomFactors : BaseBenchmark
+public class CustomFactors : Base
 {
     [Benchmark]
     public void FastSet()
     {
-        var test = new FastSet(growth: Growth, load: Load);
-        for (var i = 0; i < Iterations; i++)
-            test.TryAdd(i);
+        //var test = new FastSet(growth: Growth, load: Load);
+        //foreach (var item in RandomValues)
+        //    test.TryAdd(item);
     }
 
     [ParamsSource(nameof(GrowthValues))]
